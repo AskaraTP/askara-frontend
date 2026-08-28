@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     shortcut: '/images/logo.png',
     apple: '/images/logo.png',
   },
+  verification: {
+    google: 'google805b6f28bb5c1969',
+  },
   openGraph: {
     type: 'website',
     locale: 'id_ID',
