@@ -6,7 +6,11 @@ import { AuthProvider } from '@/context/AuthContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : undefined) ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
+  'https://askara-frontend.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -65,23 +69,12 @@ export const metadata: Metadata = {
     title: 'PT Askara Tekno Pangan | Solusi Laboratorium & Kualitas Pangan',
     description:
       'Mitra penyedia instrumen laboratorium, reagen kimia, dan analisis kualitas pangan terkemuka di Indonesia. Distributor resmi BioSystems Y15.',
-    images: [
-      {
-        url: `${SITE_URL}/images/logo.png`,
-        secureUrl: `${SITE_URL}/images/logo.png`,
-        width: 800,
-        height: 800,
-        alt: 'PT Askara Tekno Pangan - Laboratory Solutions Partner',
-        type: 'image/png',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PT Askara Tekno Pangan | Solusi Laboratorium & Kualitas Pangan',
     description:
       'Mitra penyedia instrumen laboratorium, reagen kimia, dan analisis kualitas pangan terkemuka di Indonesia. Distributor resmi BioSystems Y15.',
-    images: [`${SITE_URL}/images/logo.png`],
   },
   robots: {
     index: true,
@@ -161,12 +154,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
-        {/* WhatsApp & Social Media Fallback Image Meta */}
-        <link rel="image_src" href={`${SITE_URL}/images/logo.png`} />
-        <meta property="og:image:secure_url" content={`${SITE_URL}/images/logo.png`} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="800" />
+        {/* WhatsApp & Social Media Preview Link */}
+        <link rel="image_src" href={`${SITE_URL}/opengraph-image`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
