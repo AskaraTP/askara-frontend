@@ -341,7 +341,7 @@ export default function HomePage() {
       <JsonLd data={homeJsonLd} />
       {/* Hero Banner Slider */}
       <section
-        className={`relative min-h-[85vh] lg:min-h-[92vh] flex items-center justify-center text-center px-6 lg:px-12 overflow-hidden select-none transition-all duration-300 ${
+        className={`relative min-h-screen min-h-[100dvh] w-full flex items-center justify-center text-center px-6 lg:px-12 overflow-hidden select-none transition-all duration-300 ${
           heroSlides.length > 1 ? (isHeroDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
         }`}
         onMouseEnter={() => setHeroPaused(true)}

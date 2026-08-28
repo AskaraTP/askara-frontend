@@ -87,7 +87,11 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
+        mobileOpen
+          ? isHome
+            ? 'bg-slate-950/98 backdrop-blur-md py-4'
+            : 'bg-white py-4 border-b border-slate-200'
+          : scrolled
           ? 'bg-brand-500/95 backdrop-blur-md shadow-sm py-3.5'
           : isHome
           ? 'bg-transparent py-5'
@@ -96,12 +100,12 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>
           <img
             src="/images/logo.png"
             alt="PT Askara Tekno Pangan"
-            className={`h-10 object-contain transition-opacity duration-300 ${
-              scrolled ? 'brightness-0 invert' : ''
+            className={`h-9 sm:h-10 object-contain transition-all duration-300 ${
+              scrolled || (isHome && mobileOpen) ? 'brightness-0 invert' : ''
             }`}
           />
         </Link>
@@ -120,7 +124,7 @@ export default function Navbar() {
           {/* Contact Button */}
           <Link
             href="/contact"
-            className={`inline-flex items-center justify-center px-4 py-2 rounded-md text-xs font-semibold tracking-wide transition-colors ${
+            className={`inline-flex items-center justify-center px-4 py-2 rounded-sm text-xs font-semibold tracking-wide transition-colors ${
               scrolled
                 ? 'bg-white text-brand-600 hover:bg-slate-50'
                 : 'bg-brand-500 hover:bg-brand-600 text-white'
@@ -181,7 +185,11 @@ export default function Navbar() {
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
           className={`lg:hidden p-2 rounded-md transition-colors ${
-            scrolled || isHome ? 'text-white hover:bg-white/10' : 'text-slate-800 hover:bg-slate-100'
+            scrolled || (isHome && !mobileOpen)
+              ? 'text-white hover:bg-white/10'
+              : isHome && mobileOpen
+              ? 'text-white hover:bg-white/10'
+              : 'text-slate-800 hover:bg-slate-100'
           }`}
           aria-label="Toggle menu"
         >
@@ -189,19 +197,19 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer / Modal */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-200 px-6 py-6 shadow-lg animate-in slide-in-from-top duration-200">
-          <nav className="flex flex-col gap-2 text-sm font-medium">
+        <div className="lg:hidden mx-4 mt-3 bg-white rounded-sm border border-slate-200/90 p-5 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100dvh-5.5rem)] overflow-y-auto">
+          <nav className="flex flex-col gap-1.5 text-sm font-medium">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`py-2 px-3 rounded-md transition-colors ${
+                className={`py-2.5 px-3.5 rounded-sm text-xs font-bold transition-colors ${
                   pathname.startsWith(link.href) && link.href !== '/'
-                    ? 'bg-brand-50 text-brand-600 font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
+                    ? 'bg-brand-50 text-brand-600'
+                    : 'text-slate-700 hover:bg-slate-50 hover:text-brand-600'
                 }`}
               >
                 {link.label}
@@ -211,14 +219,14 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="py-2.5 px-3 rounded-md bg-brand-500 hover:bg-brand-600 text-white font-semibold text-center mt-2 transition-colors"
+              className="py-2.5 px-4 rounded-lg bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs text-center mt-2 transition-colors shadow-xs"
             >
               {t.nav.contact}
             </Link>
 
             {/* Mobile Language Selector */}
             <div className="pt-4 mt-2 border-t border-slate-100">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2 px-1">
                 {t.nav.language}
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -230,9 +238,9 @@ export default function Navbar() {
                       setLocale(lang.code);
                       setMobileOpen(false);
                     }}
-                    className={`flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-md border transition-colors ${
+                    className={`flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold rounded-lg border transition-colors ${
                       locale === lang.code
-                        ? 'bg-brand-50 border-brand-300 text-brand-600 font-semibold'
+                        ? 'bg-brand-50 border-brand-300 text-brand-600'
                         : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                     }`}
                   >
