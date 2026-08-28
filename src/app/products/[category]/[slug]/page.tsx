@@ -3,10 +3,11 @@
 import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/context';
-import { api } from '@/lib/api';
+import { api, resolveImageUrl } from '@/lib/api';
 import { Product } from '@/types';
 import SpecTable from '@/components/products/SpecTable';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import {
   ChevronRight,
   Download,
@@ -15,6 +16,8 @@ import {
   Building,
   ArrowLeft,
 } from 'lucide-react';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -93,8 +96,66 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     ? applicationsText.split(/\r\n|\r|\n/).filter((a) => a.trim().length > 0)
     : [];
 
+  const productUrl = `${SITE_URL}/products/${categorySlug}/${productSlug}`;
+  const prodImageUrl = product.image ? resolveImageUrl(product.image) : `${SITE_URL}/images/logo.png`;
+
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: productName,
+    image: prodImageUrl,
+    description: shortDesc || fullDesc || `${productName} - Solusi instrumen laboratorium dari PT Askara Tekno Pangan`,
+    brand: {
+      '@type': 'Brand',
+      name: 'BioSystems / Askara',
+    },
+    category: categoryName,
+    url: productUrl,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'IDR',
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'PT Askara Tekno Pangan',
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Products',
+        item: `${SITE_URL}/products`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: categoryName,
+        item: `${SITE_URL}/products/${categorySlug}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: productName,
+        item: productUrl,
+      },
+    ],
+  };
+
   return (
     <div className="pt-24 lg:pt-32">
+      <JsonLd data={[productJsonLd, breadcrumbJsonLd]} />
       <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-8 overflow-x-auto whitespace-nowrap">

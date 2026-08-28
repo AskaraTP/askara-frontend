@@ -18,6 +18,21 @@ import { clientCache } from './cache';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
+let inMemoryAuthToken: string | null = null;
+let onUnauthorizedHandler: (() => void) | null = null;
+
+export function setAuthToken(token: string | null) {
+  inMemoryAuthToken = token;
+}
+
+export function getAuthToken(): string | null {
+  return inMemoryAuthToken;
+}
+
+export function setOnUnauthorized(handler: () => void) {
+  onUnauthorizedHandler = handler;
+}
+
 export function resolveImageUrl(url: string | null | undefined): string {
   if (!url) return '';
   if (url.startsWith('/uploads/')) {
@@ -28,7 +43,7 @@ export function resolveImageUrl(url: string | null | undefined): string {
 }
 
 async function fetcher<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const token = typeof window !== 'undefined' ? localStorage.getItem('askara_token') : null;
+  const token = getAuthToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
@@ -43,6 +58,13 @@ async function fetcher<T>(endpoint: string, options: RequestInit = {}): Promise<
       ...options,
       headers,
     });
+
+    if (res.status === 401) {
+      if (onUnauthorizedHandler) {
+        onUnauthorizedHandler();
+      }
+      throw new Error('Session expired or unauthorized. Please sign in again.');
+    }
 
     if (!res.ok) {
       const errJson = await res.json().catch(() => ({}));
@@ -607,7 +629,7 @@ export const api = {
 
     // File / Image Upload
     uploadImage: async (file: File): Promise<{ url: string; filename: string }> => {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('askara_token') : null;
+      const token = getAuthToken();
       const formData = new FormData();
       formData.append('image', file);
 
@@ -620,6 +642,11 @@ export const api = {
         body: formData,
       });
 
+      if (res.status === 401) {
+        if (onUnauthorizedHandler) onUnauthorizedHandler();
+        throw new Error('Session expired or unauthorized. Please sign in again.');
+      }
+
       if (!res.ok) {
         const errJson = await res.json().catch(() => ({}));
         throw new Error(errJson.message || 'Image upload failed');
@@ -629,7 +656,7 @@ export const api = {
     },
 
     uploadMultipleImages: async (files: File[]): Promise<{ url: string; filename: string }[]> => {
-      const token = typeof window !== 'undefined' ? localStorage.getItem('askara_token') : null;
+      const token = getAuthToken();
       const formData = new FormData();
       files.forEach((file) => {
         formData.append('images', file);
@@ -643,6 +670,11 @@ export const api = {
         headers,
         body: formData,
       });
+
+      if (res.status === 401) {
+        if (onUnauthorizedHandler) onUnauthorizedHandler();
+        throw new Error('Session expired or unauthorized. Please sign in again.');
+      }
 
       if (!res.ok) {
         const errJson = await res.json().catch(() => ({}));

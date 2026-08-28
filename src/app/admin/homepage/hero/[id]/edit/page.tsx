@@ -159,7 +159,7 @@ export default function EditHeroSlidePage({ params }: EditHeroSlidePageProps) {
 
   return (
     <AdminLayout title={`Edit Hero Slide #${slideId}`}>
-      <div className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-5 pb-12">
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center gap-3">
@@ -171,22 +171,36 @@ export default function EditHeroSlidePage({ params }: EditHeroSlidePageProps) {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>
-              <h1 className="text-base font-bold text-slate-900">Edit Hero Slide #{slideId}</h1>
-              <p className="text-xs text-slate-500">Update slide headlines, background image, and links</p>
+              <h1 className="text-base font-bold text-slate-900 leading-tight">Edit Hero Slide #{slideId}</h1>
+              <p className="text-xs text-slate-500 mt-0.5">Update slide headlines, background image, and links</p>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors self-end sm:self-auto"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-            Delete Slide
-          </button>
+          <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
+            <Link
+              href="/admin/homepage"
+              className="px-4 py-2 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+            >
+              Cancel
+            </Link>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              Delete Slide
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors shadow-sm disabled:opacity-50"
+            >
+              <Save className="w-4 h-4" />
+              {saving ? 'Updating Slide...' : 'Save Changes'}
+            </button>
+          </div>
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Section 1: Background Image Upload & Preview */}
           <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -492,7 +506,6 @@ export default function EditHeroSlidePage({ params }: EditHeroSlidePageProps) {
             </button>
           </div>
         </form>
-      </div>
     </AdminLayout>
   );
 }

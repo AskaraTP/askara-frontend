@@ -7,6 +7,7 @@ import { api, resolveImageUrl } from '@/lib/api';
 import { Product, Partner, Article, HeroSlide, ShowcaseSlide, HomeSectionContent, Industry } from '@/types';
 import ProductCard from '@/components/products/ProductCard';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import {
   ArrowRight,
   FlaskConical,
@@ -323,8 +324,21 @@ export default function HomePage() {
     ? getLocalizedText(activeShowcase.caption_en, activeShowcase.caption_id) || activeShowcase.title_en || t.home.y15Caption
     : t.home.y15Caption;
 
+  const homeJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'PT Askara Tekno Pangan | Solusi Laboratorium & Kualitas Pangan',
+    url: 'https://askara.co.id',
+    description: 'Mitra penyedia instrumen laboratorium, reagen kimia, dan analisis kualitas pangan terkemuka di Indonesia. Distributor resmi BioSystems Y15.',
+    about: {
+      '@type': 'Organization',
+      name: 'PT Askara Tekno Pangan',
+    },
+  };
+
   return (
     <div className="flex flex-col">
+      <JsonLd data={homeJsonLd} />
       {/* Hero Banner Slider */}
       <section
         className={`relative min-h-[85vh] lg:min-h-[92vh] flex items-center justify-center text-center px-6 lg:px-12 overflow-hidden select-none transition-all duration-300 ${

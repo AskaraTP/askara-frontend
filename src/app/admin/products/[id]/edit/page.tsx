@@ -232,7 +232,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     <AdminLayout title={`Edit Product: ${formData.name_en || 'Product'}`}>
       <form onSubmit={handleSubmit} className="space-y-6 pb-16">
         {/* Top Header Navigation */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 sticky top-4 z-20">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center gap-3">
             <Link
               href="/admin/products"

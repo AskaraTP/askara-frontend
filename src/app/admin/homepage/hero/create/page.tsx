@@ -90,9 +90,9 @@ export default function CreateHeroSlidePage() {
 
   return (
     <AdminLayout title="Add Hero Banner Slide">
-      <div className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-5 pb-12">
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center gap-3">
             <Link
               href="/admin/homepage"
@@ -102,13 +102,28 @@ export default function CreateHeroSlidePage() {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>
-              <h1 className="text-base font-bold text-slate-900">Add Hero Banner Slide</h1>
-              <p className="text-xs text-slate-500">Configure visual slide asset, titles, and CTA actions</p>
+              <h1 className="text-base font-bold text-slate-900 leading-tight">Add Hero Banner Slide</h1>
+              <p className="text-xs text-slate-500 mt-0.5">Configure visual slide asset, titles, and CTA actions</p>
             </div>
           </div>
-        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="flex items-center gap-2.5 shrink-0">
+            <Link
+              href="/admin/homepage"
+              className="px-4 py-2 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+            >
+              Cancel
+            </Link>
+            <button
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors shadow-sm disabled:opacity-50"
+            >
+              <Save className="w-4 h-4" />
+              {saving ? 'Creating Slide...' : 'Save & Publish Hero Slide'}
+            </button>
+          </div>
+        </div>
           {/* Section 1: Background Image Upload & Preview */}
           <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -414,7 +429,6 @@ export default function CreateHeroSlidePage() {
             </button>
           </div>
         </form>
-      </div>
     </AdminLayout>
   );
 }

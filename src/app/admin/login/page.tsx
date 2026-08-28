@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { useAuth } from '@/context/AuthContext';
 import { Lock, Mail, ArrowRight, AlertCircle, ArrowLeft } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@askara.co.id');
-  const [password, setPassword] = useState('admin123');
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -21,8 +23,7 @@ export default function AdminLoginPage() {
     try {
       const res = await api.admin.login({ email, password });
       if (res.token) {
-        localStorage.setItem('askara_token', res.token);
-        localStorage.setItem('askara_user', JSON.stringify(res.user));
+        login(res.token, res.user || { email, name: 'Administrator' });
         router.push('/admin/dashboard');
       }
     } catch (err: any) {

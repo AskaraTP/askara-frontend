@@ -7,7 +7,10 @@ import { api } from '@/lib/api';
 import { ProductCategory, Product } from '@/types';
 import ProductCard from '@/components/products/ProductCard';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import { ChevronRight, ArrowLeft } from 'lucide-react';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -46,8 +49,42 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     ? getLocalizedText(category.description_en, category.description_id)
     : '';
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Products',
+        item: `${SITE_URL}/products`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: categoryName,
+        item: `${SITE_URL}/products/${categorySlug}`,
+      },
+    ],
+  };
+
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${categoryName} | PT Askara Tekno Pangan`,
+    description: categoryDesc || `Koleksi produk kategori ${categoryName} dari PT Askara Tekno Pangan.`,
+    url: `${SITE_URL}/products/${categorySlug}`,
+  };
+
   return (
     <div className="pt-24 lg:pt-32">
+      <JsonLd data={[breadcrumbJsonLd, collectionJsonLd]} />
       <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-8">

@@ -7,6 +7,7 @@ import { useUI } from '@/context/UIContext';
 import { api } from '@/lib/api';
 import { Career } from '@/types';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,6 +23,8 @@ import {
   Share2,
   Check,
 } from 'lucide-react';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
 
 interface CareerDetailPageProps {
   params: Promise<{
@@ -127,8 +130,8 @@ export default function CareerDetailPage({ params }: CareerDetailPageProps) {
 
   const jobTitle = getLocalizedText(career.job_title_en, career.job_title_id) || career.job_title_en || career.job_title_id;
   const department = getLocalizedText(career.department_en, career.department_id) || career.department_en || career.department_id || '';
-  const location = getLocalizedText(career.location_en, career.location_id) || career.location_en || career.location_id || '';
-  const employmentType = getLocalizedText(career.employment_type_en, career.employment_type_id) || career.employment_type_en || career.employment_type_id || '';
+  const location = getLocalizedText(career.location_en, career.location_id) || career.location_en || career.location_id || 'Jakarta, Indonesia';
+  const employmentType = getLocalizedText(career.employment_type_en, career.employment_type_id) || career.employment_type_en || career.employment_type_id || 'Full Time';
   const experienceLevel = getLocalizedText(career.experience_level_en, career.experience_level_id) || career.experience_level_en || career.experience_level_id || '';
 
   const description = getLocalizedText(career.description_en, career.description_id);
@@ -136,8 +139,68 @@ export default function CareerDetailPage({ params }: CareerDetailPageProps) {
   const requirements = parseList(getLocalizedText(career.requirements_en, career.requirements_id));
   const benefits = parseList(getLocalizedText(career.benefits_en, career.benefits_id));
 
+  const careerUrl = `${SITE_URL}/career/${careerSlug}`;
+
+  const jobPostingJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: jobTitle,
+    description: description || `${jobTitle} di PT Askara Tekno Pangan`,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'PT Askara Tekno Pangan',
+      value: `ASK-JOB-${career.id}`,
+    },
+    datePosted: (career as any).created_at || new Date().toISOString(),
+    validThrough: (career as any).deadline || new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+    employmentType: employmentType.toUpperCase().includes('FULL') ? 'FULL_TIME' : 'PART_TIME',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'PT Askara Tekno Pangan',
+      sameAs: SITE_URL,
+      logo: `${SITE_URL}/images/logo.png`,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: location,
+        addressCountry: 'ID',
+      },
+    },
+    responsibilities: responsibilities.join('. '),
+    skills: requirements.join('. '),
+    url: careerUrl,
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Career',
+        item: `${SITE_URL}/career`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: jobTitle,
+        item: careerUrl,
+      },
+    ],
+  };
+
   return (
     <div className="pt-24 lg:pt-32">
+      <JsonLd data={[jobPostingJsonLd, breadcrumbJsonLd]} />
       {/* Top Breadcrumb & Header */}
       <section className="max-w-6xl mx-auto px-6 lg:px-12 pb-10">
         <div className="mb-6">

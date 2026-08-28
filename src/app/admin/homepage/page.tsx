@@ -14,8 +14,6 @@ import {
   Eye,
   Layers,
   Save,
-  ExternalLink,
-  CheckCircle2,
   ArrowUp,
   ArrowDown,
 } from 'lucide-react';

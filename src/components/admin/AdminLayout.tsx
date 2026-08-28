@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 import {
   LayoutDashboard,
   Package,
@@ -28,36 +29,25 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children, title }: AdminLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [adminUser, setAdminUser] = useState<{ name?: string; email?: string } | null>(null);
+  const { user, isAuthenticated, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('askara_token');
-    const userStr = localStorage.getItem('askara_user');
+    setMounted(true);
+  }, []);
 
-    if (!token) {
+  useEffect(() => {
+    if (mounted && !isAuthenticated) {
       router.push('/admin/login');
-      return;
     }
-
-    if (userStr) {
-      try {
-        setAdminUser(JSON.parse(userStr));
-      } catch {
-        // ignore
-      }
-    }
-    setLoading(false);
-  }, [router]);
+  }, [mounted, isAuthenticated, router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('askara_token');
-    localStorage.removeItem('askara_user');
-    router.push('/admin/login');
+    logout();
   };
 
-  if (loading) {
+  if (!mounted || !isAuthenticated) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">
         <div className="flex items-center gap-3">
@@ -79,7 +69,6 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
     { href: '/admin/partners', label: 'Partners / Principals', icon: Building2 },
     { href: '/admin/careers', label: 'Careers', icon: Briefcase },
   ];
-
 
   return (
     <div className="h-screen w-full overflow-hidden bg-slate-50 flex">
@@ -119,10 +108,10 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
           <div className="flex items-center justify-between">
             <div className="min-w-0 flex-1 mr-2">
               <p className="text-xs font-bold text-white truncate">
-                {adminUser?.name || 'Administrator'}
+                {user?.name || 'Administrator'}
               </p>
               <p className="text-[11px] text-slate-500 truncate">
-                {adminUser?.email || 'admin@askara.co.id'}
+                {user?.email || 'admin@askara.co.id'}
               </p>
             </div>
             <button
