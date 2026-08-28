@@ -64,9 +64,10 @@ export const metadata: Metadata = {
       'Mitra penyedia instrumen laboratorium, reagen kimia, dan analisis kualitas pangan terkemuka di Indonesia. Distributor resmi BioSystems Y15.',
     images: [
       {
-        url: '/images/header.png',
-        width: 1200,
-        height: 630,
+        url: `${SITE_URL}/images/logo.png`,
+        secureUrl: `${SITE_URL}/images/logo.png`,
+        width: 800,
+        height: 800,
         alt: 'PT Askara Tekno Pangan - Laboratory Solutions Partner',
         type: 'image/png',
       },
@@ -77,7 +78,7 @@ export const metadata: Metadata = {
     title: 'PT Askara Tekno Pangan | Solusi Laboratorium & Kualitas Pangan',
     description:
       'Mitra penyedia instrumen laboratorium, reagen kimia, dan analisis kualitas pangan terkemuka di Indonesia. Distributor resmi BioSystems Y15.',
-    images: ['/images/header.png'],
+    images: [`${SITE_URL}/images/logo.png`],
   },
   robots: {
     index: true,
@@ -106,7 +107,7 @@ const globalJsonLd = {
         url: `${SITE_URL}/images/logo.png`,
         caption: 'PT Askara Tekno Pangan Logo',
       },
-      image: `${SITE_URL}/images/header.png`,
+      image: `${SITE_URL}/images/logo.png`,
       description:
         'Mitra terpercaya penyedia solusi laboratorium, instrumen otomatis analisis pangan, reagen kimia, dan sistem filtrasi air di Indonesia.',
       telephone: '+62-21-2297-8899',
@@ -157,6 +158,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
+        {/* WhatsApp & Social Media Fallback Image Meta */}
+        <link rel="image_src" href={`${SITE_URL}/images/logo.png`} />
+        <meta property="og:image:secure_url" content={`${SITE_URL}/images/logo.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
