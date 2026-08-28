@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-md border border-slate-200 text-slate-900 text-xs sm:text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition-colors"
-                  placeholder="admin@askara.co.id"
+                  placeholder="admin@example.com"
                 />
               </div>
             </div>
