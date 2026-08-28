@@ -4,19 +4,11 @@ export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
 
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/admin/', '/api/'],
-      },
-      {
-        userAgent: ['Googlebot', 'Bingbot', 'Applebot', 'Facebot', 'Twitterbot', 'WhatsApp'],
-        allow: '/',
-        disallow: ['/admin/', '/api/'],
-      },
-    ],
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: ['/admin/', '/api/'],
+    },
     sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
   };
 }
