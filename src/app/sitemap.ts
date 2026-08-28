@@ -58,11 +58,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const [categories, products, careers, partners] = await Promise.all([
+    const [categories, products, careers, partners, articles] = await Promise.all([
       api.getCategories(true).catch(() => []),
       api.getProducts().catch(() => []),
       api.getCareers().catch(() => []),
       api.getPartners().catch(() => []),
+      api.getArticles().catch(() => []),
     ]);
 
     // Product Category pages

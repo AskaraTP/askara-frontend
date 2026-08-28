@@ -7,6 +7,7 @@ import { api, resolveImageUrl } from '@/lib/api';
 import { Partner, PartnerGalleryItem, Product } from '@/types';
 import ProductCard from '@/components/products/ProductCard';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import {
   Building2,
   ExternalLink,
@@ -124,9 +125,47 @@ export default function PrincipalDetailPage({ params }: PrincipalDetailPageProps
   }
 
   const description = getLocalizedText(partner.description_en, partner.description_id);
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
+  const principalUrl = `${SITE_URL}/principals/${partner.slug || partnerSlug}`;
+  const principalLogoUrl = partner.logo ? resolveImageUrl(partner.logo) : `${SITE_URL}/images/logo.png`;
+
+  const principalJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Brand',
+    name: partner.name,
+    url: principalUrl,
+    logo: principalLogoUrl,
+    description: description || `${partner.name} - Prinsipal & Mitra Teknologi PT Askara Tekno Pangan`,
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Principals & Partners',
+        item: `${SITE_URL}/principals`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: partner.name,
+        item: principalUrl,
+      },
+    ],
+  };
 
   return (
     <div className="pt-24 lg:pt-32">
+      <JsonLd data={[principalJsonLd, breadcrumbJsonLd]} />
       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-3">
         <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">

@@ -6,7 +6,10 @@ import { api } from '@/lib/api';
 import { Article } from '@/types';
 import { CardSkeleton } from '@/components/ui/Skeleton';
 import CTA from '@/components/layout/CTA';
+import JsonLd from '@/components/seo/JsonLd';
 import { FlaskConical, Calendar, ExternalLink } from 'lucide-react';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
 
 export default function ArticlesPage() {
   const { getLocalizedText, t } = useLanguage();
@@ -27,8 +30,22 @@ export default function ArticlesPage() {
     loadArticles();
   }, []);
 
+  const articlesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Koleksi Artikel & Wawasan PT Askara Tekno Pangan',
+    itemListElement: articles.map((article, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: getLocalizedText(article.title_en, article.title_id),
+      url: article.linkedin_url || `${SITE_URL}/articles`,
+      image: article.image || `${SITE_URL}/images/logo.png`,
+    })),
+  };
+
   return (
     <div className="pt-24 lg:pt-32">
+      {articles.length > 0 && <JsonLd data={articlesJsonLd} />}
       {/* Hero Header */}
       <section className="max-w-4xl mx-auto px-6 lg:px-12 text-center pb-14">
         <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600 mb-2.5 inline-block">
