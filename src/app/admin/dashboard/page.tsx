@@ -36,6 +36,17 @@ export default function AdminDashboardPage() {
     loadStats();
   }, []);
 
+  if (loading) {
+    return (
+      <AdminLayout title="Dashboard Overview">
+        <div className="py-24 flex flex-col items-center justify-center space-y-3">
+          <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-500 font-medium">Memuat statistik dashboard...</p>
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
     <AdminLayout title="Dashboard Overview">
       {/* Stats Cards */}

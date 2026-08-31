@@ -57,81 +57,31 @@ const PRESETS = [
   { label: 'Askara Logo', path: '/images/logo.png' },
 ];
 
-const DEFAULT_ABOUT: AboutContent = {
-  hero_badge_en: 'About PT Askara Tekno Pangan',
-  hero_badge_id: 'Tentang PT Askara Tekno Pangan',
-  hero_title_en: 'Empowering Food Quality Laboratories in Indonesia',
-  hero_title_id: 'Memajukan Laboratorium Kualitas Pangan di Indonesia',
-  hero_subtitle_en: 'Through trusted laboratory technology, professional support, and reliable solutions for the food and beverage industry.',
-  hero_subtitle_id: 'Melalui teknologi laboratorium terpercaya, dukungan profesional, dan solusi handal untuk industri makanan & minuman.',
+const EMPTY_ABOUT: AboutContent = {
+  hero_badge_en: '',
+  hero_badge_id: '',
+  hero_title_en: '',
+  hero_title_id: '',
+  hero_subtitle_en: '',
+  hero_subtitle_id: '',
 
-  who_we_are_tag_en: 'Who We Are',
-  who_we_are_tag_id: 'Tentang Kami',
-  who_we_are_heading_en: 'Your Trusted Partner for Food Quality Analysis',
-  who_we_are_heading_id: 'Mitra Terpercaya Anda untuk Analisis Kualitas Pangan',
-  who_we_are_p1_en: 'PT Askara Tekno Pangan is an Indonesian laboratory solution provider specializing in food quality analysis and analytical solutions.',
-  who_we_are_p1_id: 'PT Askara Tekno Pangan adalah penyedia solusi laboratorium di Indonesia yang berfokus pada analisis mutu pangan dan solusi analitis.',
-  who_we_are_p2_en: 'Established in 2019, Askara delivers reliable analytical instruments, reagents, and professional support to help laboratories achieve accurate and efficient testing performance.',
-  who_we_are_p2_id: 'Didirikan pada tahun 2019, Askara menghadirkan instrumen analitis handal, reagen, serta dukungan profesional untuk membantu laboratorium mencapai performa pengujian yang akurat dan efisien.',
-  who_we_are_points_en: [
-    'Authorized distributor of BioSystems Food & Beverage',
-    'Certified application scientists & field engineers across Indonesia',
-    'Full warranty, calibration, and preventive maintenance support',
-  ],
-  who_we_are_points_id: [
-    'Distributor resmi BioSystems Food & Beverage',
-    'Application scientist & field engineer tersertifikasi di seluruh Indonesia',
-    'Dukungan garansi penuh, kalibrasi, dan pemeliharaan preventif',
-  ],
-  who_we_are_images: [
-    {
-      image: '/images/y15.png',
-      caption_en: 'BioSystems Y15 Automated Photometric Analyzer',
-      caption_id: 'BioSystems Y15 Automated Photometric Analyzer',
-      alt_text: 'BioSystems Y15 Analyzer',
-    },
-    {
-      image: '/images/gluten.png',
-      caption_en: 'Gluten & Allergen Rapid Testing Solution',
-      caption_id: 'Solusi Uji Cepat Gluten & Alergen',
-      alt_text: 'Gluten Test Kit',
-    },
-  ],
+  who_we_are_tag_en: '',
+  who_we_are_tag_id: '',
+  who_we_are_heading_en: '',
+  who_we_are_heading_id: '',
+  who_we_are_p1_en: '',
+  who_we_are_p1_id: '',
+  who_we_are_p2_en: '',
+  who_we_are_p2_id: '',
+  who_we_are_points_en: [],
+  who_we_are_points_id: [],
+  who_we_are_images: [],
 
-  why_choose_badge_en: 'Why Choose Askara',
-  why_choose_badge_id: 'Mengapa Memilih Askara',
-  why_choose_heading_en: 'Built for the Food & Beverage Industry',
-  why_choose_heading_id: 'Dirancang untuk Industri Makanan & Minuman',
-  why_choose_reasons: [
-    {
-      icon: 'ShieldCheck',
-      title_en: 'Food & Beverage Specialist',
-      title_id: 'Spesialis Makanan & Minuman',
-      desc_en: 'Dedicated laboratory solutions for quality analysis and testing in the food and beverage industry.',
-      desc_id: 'Solusi laboratorium berdedikasi untuk analisis mutu dan pengujian di industri pangan & minuman.',
-    },
-    {
-      icon: 'Award',
-      title_en: 'Official BioSystems Distributor',
-      title_id: 'Distributor Resmi BioSystems',
-      desc_en: 'Providing trusted analytical technology solutions across laboratories in Indonesia.',
-      desc_id: 'Menyediakan solusi teknologi analitis terpercaya untuk laboratorium di seluruh Indonesia.',
-    },
-    {
-      icon: 'Wrench',
-      title_en: 'Installation & Training',
-      title_id: 'Instalasi & Pelatihan',
-      desc_en: 'Professional installation, application support, and user training by experienced specialists.',
-      desc_id: 'Instalasi profesional, dukungan aplikasi, dan pelatihan pengguna oleh spesialis berpengalaman.',
-    },
-    {
-      icon: 'Headphones',
-      title_en: 'Technical Support',
-      title_id: 'Dukungan Teknis Handal',
-      desc_en: 'Reliable after-sales service and scheduled maintenance to support long-term laboratory operations.',
-      desc_id: 'Layanan purna jual responsif dan pemeliharaan berkala untuk mendukung kelancaran operasional laboratorium.',
-    },
-  ],
+  why_choose_badge_en: '',
+  why_choose_badge_id: '',
+  why_choose_heading_en: '',
+  why_choose_heading_id: '',
+  why_choose_reasons: [],
 };
 
 export default function AdminAboutManagementPage() {
@@ -141,7 +91,7 @@ export default function AdminAboutManagementPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
-  const [formData, setFormData] = useState<AboutContent>(DEFAULT_ABOUT);
+  const [formData, setFormData] = useState<AboutContent>(EMPTY_ABOUT);
 
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -151,12 +101,28 @@ export default function AdminAboutManagementPage() {
       const data = await api.admin.getAdminAboutContent();
       if (data) {
         setFormData({
-          ...DEFAULT_ABOUT,
-          ...data,
-          who_we_are_points_en: data.who_we_are_points_en || DEFAULT_ABOUT.who_we_are_points_en,
-          who_we_are_points_id: data.who_we_are_points_id || DEFAULT_ABOUT.who_we_are_points_id,
-          who_we_are_images: data.who_we_are_images && data.who_we_are_images.length > 0 ? data.who_we_are_images : DEFAULT_ABOUT.who_we_are_images,
-          why_choose_reasons: data.why_choose_reasons && data.why_choose_reasons.length > 0 ? data.why_choose_reasons : DEFAULT_ABOUT.why_choose_reasons,
+          hero_badge_en: data.hero_badge_en || '',
+          hero_badge_id: data.hero_badge_id || '',
+          hero_title_en: data.hero_title_en || '',
+          hero_title_id: data.hero_title_id || '',
+          hero_subtitle_en: data.hero_subtitle_en || '',
+          hero_subtitle_id: data.hero_subtitle_id || '',
+          who_we_are_tag_en: data.who_we_are_tag_en || '',
+          who_we_are_tag_id: data.who_we_are_tag_id || '',
+          who_we_are_heading_en: data.who_we_are_heading_en || '',
+          who_we_are_heading_id: data.who_we_are_heading_id || '',
+          who_we_are_p1_en: data.who_we_are_p1_en || '',
+          who_we_are_p1_id: data.who_we_are_p1_id || '',
+          who_we_are_p2_en: data.who_we_are_p2_en || '',
+          who_we_are_p2_id: data.who_we_are_p2_id || '',
+          who_we_are_points_en: Array.isArray(data.who_we_are_points_en) ? data.who_we_are_points_en : [],
+          who_we_are_points_id: Array.isArray(data.who_we_are_points_id) ? data.who_we_are_points_id : [],
+          who_we_are_images: Array.isArray(data.who_we_are_images) ? data.who_we_are_images : [],
+          why_choose_badge_en: data.why_choose_badge_en || '',
+          why_choose_badge_id: data.why_choose_badge_id || '',
+          why_choose_heading_en: data.why_choose_heading_en || '',
+          why_choose_heading_id: data.why_choose_heading_id || '',
+          why_choose_reasons: Array.isArray(data.why_choose_reasons) ? data.why_choose_reasons : [],
         });
       }
     } catch (err: any) {

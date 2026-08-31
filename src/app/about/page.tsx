@@ -40,8 +40,9 @@ const ICON_MAP: Record<string, any> = {
 };
 
 export default function AboutPage() {
-  const { locale, getLocalizedText, t } = useLanguage();
+  const { locale, getLocalizedText } = useLanguage();
   const [content, setContent] = useState<AboutContent | null>(null);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -58,22 +59,15 @@ export default function AboutPage() {
           setContent(data);
         }
       } catch (err) {
-        console.warn('Could not load dynamic about content, using defaults:', err);
+        console.warn('Could not load dynamic about content:', err);
+      } finally {
+        setLoading(false);
       }
     }
     loadAbout();
   }, []);
 
-  const images = content?.who_we_are_images && content.who_we_are_images.length > 0
-    ? content.who_we_are_images
-    : [
-        {
-          image: '/images/y15.png',
-          caption_en: 'BioSystems Y15 Automated Photometric Analyzer',
-          caption_id: 'BioSystems Y15 Automated Photometric Analyzer',
-          alt_text: 'BioSystems Y15 Analyzer',
-        },
-      ];
+  const images = content?.who_we_are_images || [];
 
   const nextSlide = () => {
     if (images.length <= 1) return;
@@ -151,46 +145,46 @@ export default function AboutPage() {
     return () => clearInterval(timer);
   }, [images.length, isPaused, isDragging]);
 
+  if (loading) {
+    return (
+      <div className="pt-24 lg:pt-32 min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-3 border-brand-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-400 font-medium tracking-wide">Memuat informasi...</p>
+        </div>
+      </div>
+    );
+  }
+
   const activeSlide = images[currentSlide] || images[0];
 
   const points = locale === 'id'
-    ? (content?.who_we_are_points_id && content.who_we_are_points_id.length > 0 ? content.who_we_are_points_id : t.about.points)
-    : (content?.who_we_are_points_en && content.who_we_are_points_en.length > 0 ? content.who_we_are_points_en : t.about.points);
+    ? (content?.who_we_are_points_id || [])
+    : (content?.who_we_are_points_en || []);
 
-  const reasons = content?.why_choose_reasons && content.why_choose_reasons.length > 0
-    ? content.why_choose_reasons.map((r) => ({
-        icon: r.icon,
-        title: locale === 'id' ? (r.title_id || r.title_en) : (r.title_en || r.title_id),
-        desc: locale === 'id' ? (r.desc_id || r.desc_en) : (r.desc_en || r.desc_id),
-      }))
-    : t.about.reasons.map((r, i) => {
-        const defaultIcons = ['ShieldCheck', 'Award', 'Wrench', 'Headphones'];
-        return {
-          icon: defaultIcons[i % defaultIcons.length],
-          title: r.title,
-          desc: r.desc,
-        };
-      });
+  const reasons = (content?.why_choose_reasons || []).map((r) => ({
+    icon: r.icon,
+    title: locale === 'id' ? (r.title_id || r.title_en) : (r.title_en || r.title_id),
+    desc: locale === 'id' ? (r.desc_id || r.desc_en) : (r.desc_en || r.desc_id),
+  }));
 
   return (
     <div className="pt-24 lg:pt-32">
       {/* Hero Header */}
       <section className="max-w-4xl mx-auto px-6 lg:px-12 text-center pb-14">
-        <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600 mb-2.5 inline-block">
-          {content
-            ? getLocalizedText(content.hero_badge_en, content.hero_badge_id) || t.about.badge
-            : t.about.badge}
-        </span>
+        {content?.hero_badge_en && (
+          <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600 mb-2.5 inline-block">
+            {getLocalizedText(content.hero_badge_en, content.hero_badge_id)}
+          </span>
+        )}
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          {content
-            ? getLocalizedText(content.hero_title_en, content.hero_title_id) || t.about.title
-            : t.about.title}
+          {getLocalizedText(content?.hero_title_en, content?.hero_title_id)}
         </h1>
-        <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          {content
-            ? getLocalizedText(content.hero_subtitle_en, content.hero_subtitle_id) || t.about.subtitle
-            : t.about.subtitle}
-        </p>
+        {content?.hero_subtitle_en && (
+          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            {getLocalizedText(content.hero_subtitle_en, content.hero_subtitle_id)}
+          </p>
+        )}
       </section>
 
       {/* Who We Are Section */}
@@ -199,35 +193,35 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left text */}
             <div className="lg:col-span-6 space-y-5">
-              <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600">
-                {content
-                  ? getLocalizedText(content.who_we_are_tag_en, content.who_we_are_tag_id) || t.about.whoWeAre
-                  : t.about.whoWeAre}
-              </span>
+              {content?.who_we_are_tag_en && (
+                <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600">
+                  {getLocalizedText(content.who_we_are_tag_en, content.who_we_are_tag_id)}
+                </span>
+              )}
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                {content
-                  ? getLocalizedText(content.who_we_are_heading_en, content.who_we_are_heading_id) || t.about.whoWeAreHeading
-                  : t.about.whoWeAreHeading}
+                {getLocalizedText(content?.who_we_are_heading_en, content?.who_we_are_heading_id)}
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                {content
-                  ? getLocalizedText(content.who_we_are_p1_en, content.who_we_are_p1_id) || t.about.p1
-                  : t.about.p1}
-              </p>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                {content
-                  ? getLocalizedText(content.who_we_are_p2_en, content.who_we_are_p2_id) || t.about.p2
-                  : t.about.p2}
-              </p>
+              {content?.who_we_are_p1_en && (
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                  {getLocalizedText(content.who_we_are_p1_en, content.who_we_are_p1_id)}
+                </p>
+              )}
+              {content?.who_we_are_p2_en && (
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                  {getLocalizedText(content.who_we_are_p2_en, content.who_we_are_p2_id)}
+                </p>
+              )}
 
-              <div className="pt-3 space-y-2.5">
-                {points.map((point: string, idx: number) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-slate-800 font-medium text-xs sm:text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
-                    <span>{point}</span>
-                  </div>
-                ))}
-              </div>
+              {points.length > 0 && (
+                <div className="pt-3 space-y-2.5">
+                  {points.map((point: string, idx: number) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-slate-800 font-medium text-xs sm:text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Right Multi-Image Carousel Frame with Drag & Swipe */}
@@ -278,9 +272,11 @@ export default function AboutPage() {
                 </div>
 
                 {/* Light / Transparent Caption */}
-                <p className="mt-2.5 text-center text-xs font-semibold text-slate-700 uppercase tracking-wider line-clamp-1 max-w-md">
-                  {getLocalizedText(activeSlide?.caption_en, activeSlide?.caption_id) || t.about.y15Caption}
-                </p>
+                {activeSlide?.caption_en && (
+                  <p className="mt-2.5 text-center text-xs font-semibold text-slate-700 uppercase tracking-wider line-clamp-1 max-w-md">
+                    {getLocalizedText(activeSlide.caption_en, activeSlide.caption_id)}
+                  </p>
+                )}
 
                 {/* Dot Pagination */}
                 {images.length > 1 && (
@@ -308,15 +304,13 @@ export default function AboutPage() {
       <section className="py-12 sm:py-20 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-            <span className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-bold text-brand-600">
-              {content
-                ? getLocalizedText(content.why_choose_badge_en, content.why_choose_badge_id) || t.about.whyChoose
-                : t.about.whyChoose}
-            </span>
+            {content?.why_choose_badge_en && (
+              <span className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-bold text-brand-600">
+                {getLocalizedText(content.why_choose_badge_en, content.why_choose_badge_id)}
+              </span>
+            )}
             <h2 className="mt-1.5 sm:mt-2 text-xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-              {content
-                ? getLocalizedText(content.why_choose_heading_en, content.why_choose_heading_id) || t.about.whyChooseHeading
-                : t.about.whyChooseHeading}
+              {getLocalizedText(content?.why_choose_heading_en, content?.why_choose_heading_id)}
             </h2>
           </div>
 

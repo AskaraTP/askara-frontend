@@ -18,6 +18,18 @@ import {
   ArrowDown,
 } from 'lucide-react';
 
+const EMPTY_SHOWCASE_SECTION: HomeSectionContent = {
+  tag_en: '',
+  tag_id: '',
+  title_en: '',
+  title_id: '',
+  description_en: '',
+  description_id: '',
+  button_text_en: '',
+  button_text_id: '',
+  button_url: '',
+};
+
 export default function AdminHomepageManagementPage() {
   const { toast, confirm } = useUI();
   const [activeTab, setActiveTab] = useState<'hero' | 'showcase'>('hero');
@@ -27,17 +39,7 @@ export default function AdminHomepageManagementPage() {
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
 
   // Who We Are & Showcase
-  const [showcaseSection, setShowcaseSection] = useState<HomeSectionContent>({
-    tag_en: 'WHO WE ARE',
-    tag_id: 'TENTANG KAMI',
-    title_en: 'Dedicated to Advancing Food Quality & Lab Solutions',
-    title_id: 'Berdedikasi Memajukan Kualitas Pangan & Solusi Laboratorium',
-    description_en: 'PT Askara Tekno Pangan is an innovative provider of laboratory instruments, solutions, and services for food quality testing and research.',
-    description_id: 'PT Askara Tekno Pangan adalah penyedia instrumen, solusi, dan layanan laboratorium inovatif untuk pengujian dan riset kualitas pangan.',
-    button_text_en: 'Learn More',
-    button_text_id: 'Pelajari Selengkapnya',
-    button_url: '/about',
-  });
+  const [showcaseSection, setShowcaseSection] = useState<HomeSectionContent>(EMPTY_SHOWCASE_SECTION);
   const [showcaseSlides, setShowcaseSlides] = useState<ShowcaseSlide[]>([]);
   const [sectionSaving, setSectionSaving] = useState(false);
 
@@ -50,7 +52,10 @@ export default function AdminHomepageManagementPage() {
       ]);
       setHeroSlides(heroData || []);
       if (showcaseData?.section) {
-        setShowcaseSection(showcaseData.section);
+        setShowcaseSection({
+          ...EMPTY_SHOWCASE_SECTION,
+          ...showcaseData.section,
+        });
       }
       setShowcaseSlides(showcaseData?.slides || []);
     } catch (err: any) {
@@ -179,6 +184,17 @@ export default function AdminHomepageManagementPage() {
     }
   };
 
+  if (loading) {
+    return (
+      <AdminLayout title="Homepage Banners & Sliders">
+        <div className="py-24 flex flex-col items-center justify-center space-y-3">
+          <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-500 font-medium">Memuat konten homepage...</p>
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
     <AdminLayout title="Homepage Banners & Sliders">
       <div className="space-y-6">
@@ -233,11 +249,7 @@ export default function AdminHomepageManagementPage() {
             </div>
 
             {/* Slides Grid */}
-            {loading ? (
-              <div className="bg-white p-12 rounded-lg border border-slate-200 text-center text-xs text-slate-400">
-                Loading hero slides...
-              </div>
-            ) : heroSlides.length === 0 ? (
+            {heroSlides.length === 0 ? (
               <div className="bg-white p-12 rounded-lg border border-slate-200 text-center space-y-3">
                 <SlidersHorizontal className="w-8 h-8 mx-auto text-slate-300" />
                 <p className="text-sm font-bold text-slate-700">No Hero Slides Yet</p>
