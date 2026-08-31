@@ -11,15 +11,8 @@
     "language": "Language"
   },
   "home": {
-    "heroTitle": "Empowering Quality and Trust in Every Result",
-    "heroSubtitle": "Your trusted partner for food quality analysis, laboratory instruments, and analytical solutions.",
     "exploreSolutions": "Explore Solutions",
     "contactUs": "Contact Us",
-    "whoWeAre": "Who We Are",
-    "whoWeAreTitle": "Dedicated to Advance Food Quality and Laboratory Solutions",
-    "whoWeAreDesc": "PT Askara Tekno Pangan is a trusted provider of innovative laboratory instruments, solutions, and services for food quality testing and research. We partner with global leaders to support a safer, healthier, and more sustainable future.",
-    "learnMore": "Learn More",
-    "y15Caption": "BioSystems Y15 Automated Photometric Analyzer",
     "trustedBadge": "Trusted Partner for 20+ Years",
     "stats": {
       "products": "Products",
@@ -46,41 +39,6 @@
     "latestArticlesTitle": "Latest from Askara",
     "viewAllArticles": "View All Articles",
     "readOnLinkedin": "Read on LinkedIn"
-  },
-  "about": {
-    "badge": "About PT Askara Tekno Pangan",
-    "title": "Empowering Food Quality Laboratories in Indonesia",
-    "subtitle": "Through trusted laboratory technology, professional support, and reliable solutions for the food and beverage industry.",
-    "whoWeAre": "Who We Are",
-    "whoWeAreHeading": "Your Trusted Partner for Food Quality Analysis",
-    "p1": "PT Askara Tekno Pangan is an Indonesian laboratory solution provider specializing in food quality analysis and analytical solutions.",
-    "p2": "Established in 2019, Askara delivers reliable analytical instruments, reagents, and professional support to help laboratories achieve accurate and efficient testing performance.",
-    "points": [
-      "Authorized distributor of BioSystems Food & Beverage",
-      "Certified application scientists & field engineers across Indonesia",
-      "Full warranty, calibration, and preventive maintenance support"
-    ],
-    "y15Caption": "BioSystems Y15 Automated Photometric Analyzer",
-    "whyChoose": "Why Choose Askara",
-    "whyChooseHeading": "Built for the Food & Beverage Industry",
-    "reasons": [
-      {
-        "title": "Food & Beverage Specialist",
-        "desc": "Dedicated laboratory solutions for quality analysis and testing in the food and beverage industry."
-      },
-      {
-        "title": "Official BioSystems Distributor",
-        "desc": "Providing trusted analytical technology solutions across laboratories in Indonesia."
-      },
-      {
-        "title": "Installation & Training",
-        "desc": "Professional installation, application support, and user training by experienced specialists."
-      },
-      {
-        "title": "Technical Support",
-        "desc": "Reliable after-sales service and scheduled maintenance to support long-term laboratory operations."
-      }
-    ]
   },
   "products": {
     "headerBadge": "Categories",

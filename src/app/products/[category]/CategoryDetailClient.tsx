@@ -83,6 +83,17 @@ export default function CategoryDetailClient({ params }: CategoryDetailClientPro
     url: `${SITE_URL}/products/${categorySlug}`,
   };
 
+  if (loading) {
+    return (
+      <div className="pt-24 lg:pt-32 min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-3 border-brand-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-400 font-medium tracking-wide">Memuat kategori...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-24 lg:pt-32">
       <JsonLd data={[breadcrumbJsonLd, collectionJsonLd]} />

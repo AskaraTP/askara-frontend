@@ -76,6 +76,7 @@ function HomePartnerCard({ partner }: { partner: Partner }) {
 
 export default function HomePage() {
   const { getLocalizedText, t, locale } = useLanguage();
+  const [loading, setLoading] = useState(true);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [partners, setPartners] = useState<Partner[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
@@ -113,9 +114,9 @@ export default function HomePage() {
           api.getShowcaseData(),
           api.getHomepageIndustries(),
         ]);
-        setFeaturedProducts(prods);
+        setFeaturedProducts(prods || []);
         setPartners(parts || []);
-        setArticles(arts);
+        setArticles(arts || []);
         setHeroSlides(heroData || []);
         if (showcaseData?.section) {
           setWhoWeAreSection(showcaseData.section);
@@ -124,6 +125,8 @@ export default function HomePage() {
         setHomepageIndustries(industriesData || []);
       } catch (err) {
         console.error('Failed to load homepage data', err);
+      } finally {
+        setLoading(false);
       }
     }
     loadData();
@@ -299,30 +302,22 @@ export default function HomePage() {
 
   // Active Hero Slide Data
   const activeHero = heroSlides.length > 0 ? heroSlides[currentHeroIdx] : null;
-  const heroTitle = activeHero
-    ? getLocalizedText(activeHero.title_en, activeHero.title_id) || t.home.heroTitle
-    : t.home.heroTitle;
-  const heroSubtitle = activeHero
-    ? getLocalizedText(activeHero.subtitle_en, activeHero.subtitle_id) || t.home.heroSubtitle
-    : t.home.heroSubtitle;
-  const heroPrimaryText = activeHero
-    ? getLocalizedText(activeHero.primary_btn_text_en, activeHero.primary_btn_text_id) || t.home.exploreSolutions
-    : t.home.exploreSolutions;
+  const heroTitle = activeHero ? getLocalizedText(activeHero.title_en, activeHero.title_id) : '';
+  const heroSubtitle = activeHero ? getLocalizedText(activeHero.subtitle_en, activeHero.subtitle_id) : '';
+  const heroPrimaryText = activeHero ? getLocalizedText(activeHero.primary_btn_text_en, activeHero.primary_btn_text_id) : (locale === 'id' ? 'Eksplorasi Solusi' : 'Explore Solutions');
   const heroPrimaryUrl = activeHero?.primary_btn_url || '/products';
-  const heroSecondaryText = activeHero
-    ? getLocalizedText(activeHero.secondary_btn_text_en, activeHero.secondary_btn_text_id) || t.home.contactUs
-    : t.home.contactUs;
+  const heroSecondaryText = activeHero ? getLocalizedText(activeHero.secondary_btn_text_en, activeHero.secondary_btn_text_id) : (locale === 'id' ? 'Hubungi Kami' : 'Contact Us');
   const heroSecondaryUrl = activeHero?.secondary_btn_url || '/contact';
 
   // Active Showcase Slide Data
   const activeShowcase = showcaseSlides.length > 0 ? showcaseSlides[currentShowcaseIdx] : null;
-  const showcaseImage = activeShowcase ? resolveImageUrl(activeShowcase.image) : '/images/y15.png';
+  const showcaseImage = activeShowcase ? resolveImageUrl(activeShowcase.image) : '';
   const showcaseAlt = activeShowcase
-    ? getLocalizedText(activeShowcase.title_en, activeShowcase.title_id) || 'Showcase'
+    ? (getLocalizedText(activeShowcase.title_en, activeShowcase.title_id) || 'Showcase')
     : 'BioSystems Y15 Analyzer';
   const showcaseCaption = activeShowcase
-    ? getLocalizedText(activeShowcase.caption_en, activeShowcase.caption_id) || activeShowcase.title_en || t.home.y15Caption
-    : t.home.y15Caption;
+    ? (getLocalizedText(activeShowcase.caption_en, activeShowcase.caption_id) || activeShowcase.title_en || '')
+    : '';
 
   const homeJsonLd = {
     '@context': 'https://schema.org',
@@ -335,6 +330,17 @@ export default function HomePage() {
       name: 'PT Askara Tekno Pangan',
     },
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-3 border-brand-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-400 font-medium tracking-wide">Memuat Askara...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
@@ -381,13 +387,17 @@ export default function HomePage() {
 
         {/* Hero Content Box */}
         <div className="relative z-10 max-w-4xl mx-auto py-16 sm:py-24 lg:py-28 flex flex-col items-center pointer-events-auto">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] max-w-3xl transition-all duration-700">
-            {heroTitle}
-          </h1>
+          {heroTitle && (
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15] max-w-3xl transition-all duration-700">
+              {heroTitle}
+            </h1>
+          )}
 
-          <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal transition-all duration-700">
-            {heroSubtitle}
-          </p>
+          {heroSubtitle && (
+            <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal transition-all duration-700">
+              {heroSubtitle}
+            </p>
+          )}
 
           <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3.5 w-full sm:w-auto">
             <Link
@@ -433,32 +443,32 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-12 gap-3.5 sm:gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="col-span-1 lg:col-span-6 flex flex-col justify-center space-y-2 sm:space-y-3.5">
-              <span className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-bold text-brand-600">
-                {whoWeAreSection
-                  ? getLocalizedText(whoWeAreSection.tag_en, whoWeAreSection.tag_id) || t.home.whoWeAre
-                  : t.home.whoWeAre}
-              </span>
+              {whoWeAreSection?.tag_en && (
+                <span className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-bold text-brand-600">
+                  {getLocalizedText(whoWeAreSection.tag_en, whoWeAreSection.tag_id)}
+                </span>
+              )}
 
-              <h2 className="text-sm sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug sm:leading-tight">
-                {whoWeAreSection
-                  ? getLocalizedText(whoWeAreSection.title_en, whoWeAreSection.title_id) || t.home.whoWeAreTitle
-                  : t.home.whoWeAreTitle}
-              </h2>
+              {whoWeAreSection?.title_en && (
+                <h2 className="text-sm sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug sm:leading-tight">
+                  {getLocalizedText(whoWeAreSection.title_en, whoWeAreSection.title_id)}
+                </h2>
+              )}
 
-              <p className="text-slate-600 leading-relaxed text-[11px] sm:text-sm lg:text-base whitespace-pre-line line-clamp-3 sm:line-clamp-none">
-                {whoWeAreSection
-                  ? getLocalizedText(whoWeAreSection.description_en, whoWeAreSection.description_id) || t.home.whoWeAreDesc
-                  : t.home.whoWeAreDesc}
-              </p>
+              {whoWeAreSection?.description_en && (
+                <p className="text-slate-600 leading-relaxed text-[11px] sm:text-sm lg:text-base whitespace-pre-line line-clamp-3 sm:line-clamp-none">
+                  {getLocalizedText(whoWeAreSection.description_en, whoWeAreSection.description_id)}
+                </p>
+              )}
 
               <div className="pt-1">
                 <Link
                   href={whoWeAreSection?.button_url || '/about'}
                   className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-brand-500 hover:bg-brand-600 text-white font-semibold text-[11px] sm:text-xs transition-colors duration-200 shadow-xs"
                 >
-                  {whoWeAreSection
-                    ? getLocalizedText(whoWeAreSection.button_text_en, whoWeAreSection.button_text_id) || t.home.learnMore
-                    : t.home.learnMore}
+                  <span>
+                    {getLocalizedText(whoWeAreSection?.button_text_en, whoWeAreSection?.button_text_id) || (locale === 'id' ? 'Pelajari Selengkapnya' : 'Learn More')}
+                  </span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -486,18 +496,26 @@ export default function HomePage() {
               >
                 {/* Full-Bleed Showcase Image Container */}
                 <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] rounded-xl overflow-hidden bg-slate-100/70 border border-slate-200 shadow-xs">
-                  <img
-                    key={showcaseImage}
-                    src={showcaseImage}
-                    alt={showcaseAlt}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 pointer-events-none"
-                  />
+                  {showcaseImage ? (
+                    <img
+                      key={showcaseImage}
+                      src={showcaseImage}
+                      alt={showcaseAlt}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 pointer-events-none"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs">
+                      No Image
+                    </div>
+                  )}
                 </div>
 
                 {/* Light / Transparent Synchronized Caption */}
-                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-slate-700 uppercase mt-2.5 text-center max-w-md transition-all duration-300 line-clamp-1 sm:line-clamp-2">
-                  {showcaseCaption}
-                </span>
+                {showcaseCaption && (
+                  <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-slate-700 uppercase mt-2.5 text-center max-w-md transition-all duration-300 line-clamp-1 sm:line-clamp-2">
+                    {showcaseCaption}
+                  </span>
+                )}
 
                 {/* Indicator Dots for Showcase */}
                 {showcaseSlides.length > 1 && (

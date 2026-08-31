@@ -11,15 +11,8 @@
     "language": "Bahasa"
   },
   "home": {
-    "heroTitle": "Mewujudkan Kualitas dan Kepercayaan di Setiap Hasil Uji",
-    "heroSubtitle": "Mitra terpercaya Anda untuk solusi analisis kualitas pangan, instrumen laboratorium, dan reagen analitis.",
     "exploreSolutions": "Jelajahi Solusi",
     "contactUs": "Hubungi Kami",
-    "whoWeAre": "Tentang Kami",
-    "whoWeAreTitle": "Berdedikasi Memajukan Kualitas Pangan & Solusi Laboratorium",
-    "whoWeAreDesc": "PT Askara Tekno Pangan adalah penyedia instrumen, solusi, dan layanan laboratorium inovatif untuk pengujian dan riset kualitas pangan. Kami bermitra dengan pemimpin global untuk mendukung masa depan yang lebih aman, sehat, dan berkelanjutan.",
-    "learnMore": "Pelajari Selengkapnya",
-    "y15Caption": "Penganalisis Fotometris Otomatis BioSystems Y15",
     "trustedBadge": "Mitra Terpercaya 20+ Tahun Pengalaman",
     "stats": {
       "products": "Produk",
@@ -46,41 +39,6 @@
     "latestArticlesTitle": "Kabar Terbaru dari Askara",
     "viewAllArticles": "Lihat Semua Artikel",
     "readOnLinkedin": "Baca di LinkedIn"
-  },
-  "about": {
-    "badge": "Tentang PT Askara Tekno Pangan",
-    "title": "Memberdayakan Laboratorium Kualitas Pangan di Indonesia",
-    "subtitle": "Melalui teknologi laboratorium terpercaya, dukungan profesional, dan solusi andal untuk industri makanan dan minuman.",
-    "whoWeAre": "Siapa Kami",
-    "whoWeAreHeading": "Mitra Terpercaya Anda untuk Analisis Mutu Pangan",
-    "p1": "PT Askara Tekno Pangan adalah penyedia solusi laboratorium Indonesia yang mengkhususkan diri dalam analisis kualitas pangan dan solusi analitis.",
-    "p2": "Didirikan pada tahun 2019, Askara menghadirkan instrumen analitik, reagen, dan dukungan profesional yang andal untuk membantu laboratorium mencapai kinerja pengujian yang akurat dan efisien.",
-    "points": [
-      "Distributor resmi BioSystems Food & Beverage",
-      "Ilmuwan aplikasi & teknisi lapangan bersertifikat di seluruh Indonesia",
-      "Garansi penuh, kalibrasi, dan dukungan perawatan berkala"
-    ],
-    "y15Caption": "Penganalisis Fotometris Otomatis BioSystems Y15",
-    "whyChoose": "Mengapa Memilih Askara",
-    "whyChooseHeading": "Dirancang Khusus untuk Industri Makanan & Minuman",
-    "reasons": [
-      {
-        "title": "Spesialis Makanan & Minuman",
-        "desc": "Solusi laboratorium khusus untuk analisis mutu dan pengujian keamanan dalam industri makanan dan minuman."
-      },
-      {
-        "title": "Distributor Resmi BioSystems",
-        "desc": "Menyediakan teknologi analitik terpercaya untuk berbagai laboratorium di seluruh Indonesia."
-      },
-      {
-        "title": "Instalasi & Pelatihan Profesional",
-        "desc": "Pemasangan instrumen profesional, dukungan aplikasi metode, dan pelatihan pengguna oleh spesialis berpengalaman."
-      },
-      {
-        "title": "Dukungan Teknis & Purna Jual",
-        "desc": "Layanan purna jual yang andal dan pemeliharaan berkala untuk mendukung kelancaran operasional laboratorium jangka panjang."
-      }
-    ]
   },
   "products": {
     "headerBadge": "Kategori",
