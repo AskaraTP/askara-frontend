@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     apple: '/images/logo.png',
   },
   verification: {
-    google: 'google805b6f28bb5c1969',
+    google: '6wWUjHw0t33QvweuT_eZP8v6jsMOsA0pPtWukN6Ov78',
   },
   openGraph: {
     type: 'website',
