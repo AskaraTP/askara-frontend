@@ -129,7 +129,29 @@ export default function AdminHomepageManagementPage() {
     e.preventDefault();
     setSectionSaving(true);
     try {
-      await api.admin.updateWhoWeAreSection(showcaseSection);
+      const payload = {
+        ...showcaseSection,
+        tag_en: showcaseSection.tag_en || 'WHO WE ARE',
+        tag_id: showcaseSection.tag_id || 'TENTANG KAMI',
+        badge_en: showcaseSection.tag_en || 'WHO WE ARE',
+        badge_id: showcaseSection.tag_id || 'TENTANG KAMI',
+        title_en: showcaseSection.title_en,
+        title_id: showcaseSection.title_id,
+        description_en: showcaseSection.description_en,
+        description_id: showcaseSection.description_id,
+        subtitle_en: showcaseSection.description_en,
+        subtitle_id: showcaseSection.description_id,
+        button_text_en: showcaseSection.button_text_en || 'Learn More',
+        button_text_id: showcaseSection.button_text_id || 'Pelajari Selengkapnya',
+        button_url: showcaseSection.button_url || '/about',
+        cta_text_en: showcaseSection.button_text_en || 'Learn More',
+        cta_text_id: showcaseSection.button_text_id || 'Pelajari Selengkapnya',
+        cta_link: showcaseSection.button_url || '/about',
+      };
+      const updated = await api.admin.updateWhoWeAreSection(payload);
+      if (updated) {
+        setShowcaseSection(updated);
+      }
       toast('Who We Are section content saved successfully', 'success');
     } catch (err: any) {
       toast(err.message || 'Error saving section texts', 'error');

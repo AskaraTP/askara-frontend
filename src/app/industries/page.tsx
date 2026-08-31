@@ -33,14 +33,6 @@ const iconMap: Record<string, any> = {
 
 const defaultSectorIcons = [Utensils, Fish, Factory, FlaskConical, Trees];
 
-const defaultCategoryMap: Record<number, string> = {
-  0: 'instrument',    // Food & Beverage
-  1: 'rapid-test',    // Seafood & Export
-  2: 'instrument',    // Manufacturing
-  3: 'reagent-kimia', // Lab & Quality Testing
-  4: 'ipal',          // Environmental & Water
-};
-
 export default function IndustriesPage() {
   const { t, locale, getLocalizedText } = useLanguage();
   const [industries, setIndustries] = useState<Industry[]>([]);
@@ -50,7 +42,7 @@ export default function IndustriesPage() {
     async function loadIndustries() {
       try {
         const data = await api.getIndustries({ activeOnly: true });
-        if (data && data.length > 0) {
+        if (data && Array.isArray(data)) {
           setIndustries(data);
         }
       } catch (err) {
@@ -80,8 +72,29 @@ export default function IndustriesPage() {
       {/* Industries Grid */}
       <section className="py-12 sm:py-16 bg-slate-50 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-          {/* If dynamic industries exist, render them */}
-          {industries.length > 0 ? (
+          {loading ? (
+            /* Loading Skeleton to prevent content blinking */
+            <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="p-3.5 sm:p-7 lg:p-8 rounded-lg bg-white border border-slate-200 animate-pulse flex flex-col justify-between h-48 sm:h-60"
+                >
+                  <div>
+                    <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-md bg-slate-100 mb-3 sm:mb-5" />
+                    <div className="h-4 sm:h-5 bg-slate-200 rounded w-3/4 mb-2" />
+                    <div className="h-3 bg-slate-100 rounded w-full mb-1" />
+                    <div className="h-3 bg-slate-100 rounded w-2/3" />
+                  </div>
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <div className="h-3 sm:h-4 bg-slate-100 rounded w-16" />
+                    <div className="h-3 sm:h-4 bg-slate-100 rounded w-20" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : industries.length > 0 ? (
+            /* Dynamic Industries from Database */
             <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
               {industries.map((item, idx) => {
                 const iconKey = item.icon_name || item.icon || 'Factory';
@@ -138,53 +151,9 @@ export default function IndustriesPage() {
               })}
             </div>
           ) : (
-            /* Fallback to JSON dictionary if API is loading or offline */
-            <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
-              {t.industries.items.map((item, idx) => {
-                const Icon = defaultSectorIcons[idx % defaultSectorIcons.length];
-                const isFullWidth = idx === t.industries.items.length - 1 && t.industries.items.length % 2 !== 0;
-                const targetCategory = defaultCategoryMap[idx] || 'instrument';
-
-                return (
-                  <Link
-                    key={idx}
-                    href={`/products/${targetCategory}`}
-                    className={`group p-3.5 sm:p-7 lg:p-8 rounded-lg bg-white border border-slate-200 hover:border-brand-400 transition-colors duration-200 flex flex-col justify-between cursor-pointer ${
-                      isFullWidth ? 'col-span-2' : ''
-                    }`}
-                  >
-                    <div>
-                      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-md bg-slate-100 text-slate-700 flex items-center justify-center mb-2.5 sm:mb-5">
-                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-brand-600" />
-                      </div>
-                      <h3 className="text-xs sm:text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors leading-snug">
-                        {item.title}
-                      </h3>
-                      <p className="mt-1.5 sm:mt-2.5 text-slate-600 leading-relaxed text-[11px] sm:text-sm line-clamp-2 sm:line-clamp-3">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    <div className="mt-3 sm:mt-6 pt-2.5 sm:pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
-                      <div className="flex flex-wrap gap-1 sm:gap-1.5">
-                        {item.tags.map((tag, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-sm bg-slate-100 text-slate-700 text-[10px] sm:text-xs font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-brand-600 group-hover:text-brand-700 transition-colors">
-                        <span>{t.industries.viewRelevant}</span>
-                        <ArrowRight className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+            /* Empty state when no industries exist */
+            <div className="py-16 text-center text-slate-500">
+              <p className="text-sm">No industries available at the moment.</p>
             </div>
           )}
         </div>

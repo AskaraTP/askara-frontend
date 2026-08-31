@@ -1,0 +1,39 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. If physical file exists, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # 2. If physical directory with index.html exists, serve it directly
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+)/?$ /$1/index.html [L]
+
+  # 3. Dynamic Admin Routes Rewrite to Static Fallback Templates
+  RewriteRule ^admin/articles/([^/]+)/edit/?$ /admin/articles/1/edit/index.html [L]
+  RewriteRule ^admin/careers/([^/]+)/edit/?$ /admin/careers/1/edit/index.html [L]
+  RewriteRule ^admin/careers/([^/]+)/?$ /admin/careers/1/index.html [L]
+  RewriteRule ^admin/categories/([^/]+)/edit/?$ /admin/categories/1/edit/index.html [L]
+  RewriteRule ^admin/homepage/hero/([^/]+)/edit/?$ /admin/homepage/hero/1/edit/index.html [L]
+  RewriteRule ^admin/homepage/hero/([^/]+)/?$ /admin/homepage/hero/1/index.html [L]
+  RewriteRule ^admin/homepage/showcase/([^/]+)/edit/?$ /admin/homepage/showcase/1/edit/index.html [L]
+  RewriteRule ^admin/homepage/showcase/([^/]+)/?$ /admin/homepage/showcase/1/index.html [L]
+  RewriteRule ^admin/industries/([^/]+)/edit/?$ /admin/industries/1/edit/index.html [L]
+  RewriteRule ^admin/industries/([^/]+)/?$ /admin/industries/1/index.html [L]
+  RewriteRule ^admin/partners/([^/]+)/edit/?$ /admin/partners/1/edit/index.html [L]
+  RewriteRule ^admin/partners/([^/]+)/?$ /admin/partners/1/index.html [L]
+  RewriteRule ^admin/products/([^/]+)/edit/?$ /admin/products/1/edit/index.html [L]
+
+  # 4. Dynamic Public Routes Rewrite to Fallback Templates
+  RewriteRule ^career/([^/]+)/apply/?$ /career/account-executive/apply/index.html [L]
+  RewriteRule ^career/([^/]+)/?$ /career/account-executive/index.html [L]
+  RewriteRule ^principals/([^/]+)/?$ /principals/biosystems/index.html [L]
+  RewriteRule ^products/([^/]+)/([^/]+)/?$ /products/instrument/biosystems-y15-clinical-chemistry-analyzer/index.html [L]
+  RewriteRule ^products/([^/]+)/?$ /products/instrument/index.html [L]
+
+  # 5. SPA Fallback for 404
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /404.html [L]
+</IfModule>

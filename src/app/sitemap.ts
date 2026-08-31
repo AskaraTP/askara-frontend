@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { api } from '@/lib/api';
 
+export const dynamic = 'force-static';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
   const now = new Date().toISOString();
