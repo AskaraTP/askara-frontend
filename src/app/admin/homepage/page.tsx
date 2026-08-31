@@ -343,14 +343,14 @@ export default function AdminHomepageManagementPage() {
 
                         <div className="flex items-center gap-1.5">
                           <Link
-                            href={`/admin/homepage/hero/${slide.id}`}
+                            href={`/admin/homepage/hero/detail?id=${slide.id}`}
                             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
                           >
                             <Eye className="w-3.5 h-3.5" />
                             View
                           </Link>
                           <Link
-                            href={`/admin/homepage/hero/${slide.id}/edit`}
+                            href={`/admin/homepage/hero/edit?id=${slide.id}`}
                             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold transition-colors"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -624,14 +624,14 @@ export default function AdminHomepageManagementPage() {
                           </div>
                           <div className="flex items-center gap-1.5">
                             <Link
-                              href={`/admin/homepage/showcase/${slide.id}`}
+                              href={`/admin/homepage/showcase/detail?id=${slide.id}`}
                               className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
                             >
                               <Eye className="w-3.5 h-3.5" />
                               View
                             </Link>
                             <Link
-                              href={`/admin/homepage/showcase/${slide.id}/edit`}
+                              href={`/admin/homepage/showcase/edit?id=${slide.id}`}
                               className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold transition-colors"
                             >
                               <Edit2 className="w-3.5 h-3.5" />

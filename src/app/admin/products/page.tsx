@@ -307,7 +307,7 @@ export default function AdminProductsPage() {
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end gap-1">
                           <Link
-                            href={`/admin/products/${prod.id}/edit`}
+                            href={`/admin/products/edit?id=${prod.id}`}
                             className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                             title="Edit Product Page"
                           >

@@ -274,7 +274,7 @@ export default function AdminPartnersPage() {
 
                     <div className="flex items-center gap-1.5">
                       <Link
-                        href={`/admin/partners/${partner.id}`}
+                        href={`/admin/partners/detail?id=${partner.id}`}
                         className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold transition-colors"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export default function AdminPartnersPage() {
                       </Link>
 
                       <Link
-                        href={`/admin/partners/${partner.id}/edit`}
+                        href={`/admin/partners/edit?id=${partner.id}`}
                         className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold transition-colors"
                       >
                         <Edit2 className="w-3.5 h-3.5" />

@@ -254,7 +254,7 @@ export default function AdminArticlesPage() {
                             </a>
                           )}
                           <Link
-                            href={`/admin/articles/${art.id}/edit`}
+                            href={`/admin/articles/edit?id=${art.id}`}
                             className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                             title="Edit Article Page"
                           >

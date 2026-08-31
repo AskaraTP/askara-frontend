@@ -163,7 +163,7 @@ export default function CreatePartnerPage() {
 
       const created = await api.admin.createPartner(payload);
       toast('Principal created successfully', 'success');
-      router.push(`/admin/partners/${created.id}`);
+      router.push(`/admin/partners/detail?id=${created.id}`);
     } catch (err: any) {
       toast(err.message || 'Failed to create principal', 'error');
     } finally {

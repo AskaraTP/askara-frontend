@@ -123,7 +123,7 @@ export default function AdminCareersPage() {
                           </div>
                           <div>
                             <Link
-                              href={`/admin/careers/${career.id}`}
+                              href={`/admin/careers/detail?id=${career.id}`}
                               className="text-xs font-bold leading-tight hover:text-brand-600 transition-colors"
                             >
                               {career.job_title_en}
@@ -174,7 +174,7 @@ export default function AdminCareersPage() {
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end gap-1">
                           <Link
-                            href={`/admin/careers/${career.id}`}
+                            href={`/admin/careers/detail?id=${career.id}`}
                             className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                             title="View Vacancy Details & Applicants"
                           >
@@ -191,7 +191,7 @@ export default function AdminCareersPage() {
                             </Link>
                           )}
                           <Link
-                            href={`/admin/careers/${career.id}/edit`}
+                            href={`/admin/careers/edit?id=${career.id}`}
                             className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                             title="Edit Vacancy"
                           >

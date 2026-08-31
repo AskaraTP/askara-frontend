@@ -98,7 +98,7 @@ export default function CreateIndustryPage() {
 
       const created = await api.admin.createIndustry(payload);
       toast('Industry sector created successfully', 'success');
-      router.push(`/admin/industries/${created.id}`);
+      router.push(`/admin/industries/detail?id=${created.id}`);
     } catch (err: any) {
       toast(err.message || 'Failed to create industry sector', 'error');
     } finally {

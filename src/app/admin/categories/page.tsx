@@ -202,7 +202,7 @@ export default function AdminCategoriesPage() {
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Link
-                          href={`/admin/categories/${cat.id}/edit`}
+                          href={`/admin/categories/edit?id=${cat.id}`}
                           className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-brand-50 rounded-md transition-colors"
                           title="Edit Category Page"
                         >
