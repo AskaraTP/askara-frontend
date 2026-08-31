@@ -110,14 +110,14 @@ export default function ContactPage() {
           <div className="lg:col-span-6">
             <div className="w-full h-[400px] rounded-lg overflow-hidden border border-slate-200 bg-slate-100 relative">
               <iframe
-                src="https://www.google.com/maps?q=Biosystems+Indonesia&output=embed"
+                src="https://www.google.com/maps?q=PT+Askara+Tekno+Pangan&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Biosystems Indonesia Location Map"
+                title="PT Askara Tekno Pangan Location Map"
               />
             </div>
           </div>
