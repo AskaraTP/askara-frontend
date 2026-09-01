@@ -4,10 +4,11 @@ import PrincipalDetailClient from './PrincipalDetailClient';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  const defaults = [{ slug: 'biosystems' }, { slug: '1' }];
   try {
     const partners = await api.getPartners();
     if (partners && partners.length > 0) {
-      return partners.map((partner) => ({
+      const generated = partners.map((partner) => ({
         slug:
           partner.slug ||
           partner.name
@@ -16,11 +17,12 @@ export async function generateStaticParams() {
             .replace(/(^-|-$)+/g, '') ||
           String(partner.id),
       }));
+      return [...defaults, ...generated];
     }
   } catch {
     // Fallback to default
   }
-  return [{ slug: 'biosystems' }, { slug: '1' }];
+  return defaults;
 }
 
 interface PageProps {

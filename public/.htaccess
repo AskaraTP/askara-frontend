@@ -2,6 +2,10 @@
   RewriteEngine On
   RewriteBase /
 
+  # 0. Canonical Domain Redirect (www -> non-www)
+  RewriteCond %{HTTP_HOST} ^www\.askarateknopangan\.co\.id$ [NC]
+  RewriteRule ^(.*)$ https://askarateknopangan.co.id/$1 [L,R=301]
+
   # 1. If physical file exists, serve it directly
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
@@ -29,8 +33,8 @@
   RewriteRule ^career/([^/]+)/apply/?$ /career/account-executive/apply/index.html [L]
   RewriteRule ^career/([^/]+)/?$ /career/account-executive/index.html [L]
   RewriteRule ^principals/([^/]+)/?$ /principals/biosystems/index.html [L]
-  RewriteRule ^products/([^/]+)/([^/]+)/?$ /products/instrument/biosystems-y15-clinical-chemistry-analyzer/index.html [L]
-  RewriteRule ^products/([^/]+)/?$ /products/instrument/index.html [L]
+  RewriteRule ^products/([^/]+)/([^/]+)/?$ /products/general/detail/index.html [L]
+  RewriteRule ^products/([^/]+)/?$ /products/general/index.html [L]
 
   # 5. SPA Fallback for 404
   RewriteCond %{REQUEST_FILENAME} !-f

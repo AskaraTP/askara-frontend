@@ -4,22 +4,23 @@ import CategoryDetailClient from './CategoryDetailClient';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  const defaults = [
+    { category: 'general' },
+    { category: 'instrument' },
+    { category: 'rapid-test' },
+  ];
   try {
     const categories = await api.getCategories();
     if (categories && categories.length > 0) {
-      return categories.map((cat) => ({
+      const generated = categories.map((cat) => ({
         category: cat.slug,
       }));
+      return [...defaults, ...generated];
     }
   } catch {
     // Fallback to default
   }
-  return [
-    { category: 'instrument' },
-    { category: 'reagent-kimia' },
-    { category: 'rapid-test' },
-    { category: 'ipal' },
-  ];
+  return defaults;
 }
 
 interface PageProps {

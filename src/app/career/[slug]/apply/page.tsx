@@ -4,17 +4,19 @@ import CareerApplyClient from './CareerApplyClient';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  const defaults = [{ slug: 'account-executive' }, { slug: '1' }];
   try {
     const careers = await api.getCareers();
     if (careers && careers.length > 0) {
-      return careers.map((job) => ({
+      const generated = careers.map((job) => ({
         slug: job.slug || String(job.id),
       }));
+      return [...defaults, ...generated];
     }
   } catch {
     // Fallback to default
   }
-  return [{ slug: 'account-executive' }, { slug: '1' }];
+  return defaults;
 }
 
 interface PageProps {

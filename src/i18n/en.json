@@ -3,7 +3,7 @@
     "about": "About",
     "products": "Products",
     "industries": "Industries",
-    "principals": "Principals",
+    "principals": "Partner",
     "articles": "Articles",
     "career": "Career",
     "contact": "Contact",
@@ -16,7 +16,7 @@
     "trustedBadge": "Trusted Partner for 20+ Years",
     "stats": {
       "products": "Products",
-      "principals": "Principals",
+      "principals": "Partner",
       "customers": "Customers",
       "experience": "Years Experience"
     },
@@ -32,8 +32,8 @@
     "featuredProducts": "Our Solutions",
     "featuredProductsTitle": "Products & featured solutions",
     "viewAllProducts": "View All Products",
-    "partnersBadge": "Principals Network",
-    "partnersTitle": "Our Global Principals & Partners",
+    "partnersBadge": "Partner Network",
+    "partnersTitle": "Our Global Partners",
     "partnersSubtitle": "Partnering with world-class analytical equipment manufacturers.",
     "latestArticles": "Knowledge & Insights",
     "latestArticlesTitle": "Latest from Askara",
@@ -110,7 +110,7 @@
     "title": "World-Class Technology Partners",
     "subtitle": "We partner directly with leading international instrument and reagent manufacturers to deliver state-of-the-art laboratory solutions to Indonesia.",
     "officialDistributor": "Official Exclusive Partner",
-    "authorizedBadge": "Official Authorized Principal",
+    "authorizedBadge": "Official Authorized Partner",
     "visitWebsite": "Visit Official Global Website",
     "activitiesBadge": "Activities & Field Highlights",
     "galleryTitle": "Documentation Gallery with",
@@ -125,7 +125,7 @@
     "activityDoc": "Activity Documentation",
     "networkBadge": "Analytical Equipment Network",
     "networkTitle": "Leading Laboratory Brands",
-    "empty": "No principals have been added yet."
+    "empty": "No partners have been added yet."
   },
   "articles": {
     "badge": "Articles & Updates",

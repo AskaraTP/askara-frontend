@@ -3,7 +3,7 @@
     "about": "Tentang Kami",
     "products": "Produk",
     "industries": "Industri",
-    "principals": "Prinsipal",
+    "principals": "Partner",
     "articles": "Artikel",
     "career": "Karir",
     "contact": "Kontak",
@@ -16,7 +16,7 @@
     "trustedBadge": "Mitra Terpercaya 20+ Tahun Pengalaman",
     "stats": {
       "products": "Produk",
-      "principals": "Prinsipal",
+      "principals": "Partner",
       "customers": "Pelanggan",
       "experience": "Tahun Pengalaman"
     },
@@ -106,11 +106,11 @@
     ]
   },
   "principals": {
-    "badge": "Mitra Global Kami",
-    "title": "Prinsipal Teknologi Kelas Dunia",
+    "badge": "Partner Global Kami",
+    "title": "Partner Teknologi Kelas Dunia",
     "subtitle": "Kami bermitra langsung dengan produsen instrumen dan reagen analitis internasional terkemuka untuk menghadirkan teknologi mutakhir ke Indonesia.",
-    "officialDistributor": "Mitra Resmi & Distributor",
-    "authorizedBadge": "Prinsipal Resmi Terotorisasi",
+    "officialDistributor": "Partner Resmi & Distributor",
+    "authorizedBadge": "Partner Resmi Terotorisasi",
     "visitWebsite": "Kunjungi Situs Resmi Global",
     "activitiesBadge": "Aktivitas & Sorotan Lapangan",
     "galleryTitle": "Galeri Dokumentasi bersama",
@@ -125,7 +125,7 @@
     "activityDoc": "Dokumentasi Kegiatan",
     "networkBadge": "Jaringan Peralatan Analitis",
     "networkTitle": "Merk Laboratorium Terkemuka",
-    "empty": "Belum ada prinsipal yang ditambahkan."
+    "empty": "Belum ada partner yang ditambahkan."
   },
   "articles": {
     "badge": "Artikel & Berita",
