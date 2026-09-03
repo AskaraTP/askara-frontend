@@ -91,7 +91,7 @@ export interface Career {
   employment_type_id: string | null;
   experience_level_en?: string | null;
   experience_level_id?: string | null;
-  linkedin_url: string | null;
+  linkedin_url?: string | null;
   description_en?: string | null;
   description_id?: string | null;
   responsibilities_en?: string | null;

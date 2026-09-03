@@ -33,7 +33,6 @@ export default function CreateCareerPage() {
     experience_level_en: '1-3 Years Experience',
     experience_level_id: 'Pengalaman 1-3 Tahun',
     salary_range: 'Competitive Package',
-    linkedin_url: 'https://www.linkedin.com/company/askara-tekno-pangan/jobs',
     description_en: '',
     description_id: '',
     responsibilities_en: '• ',
