@@ -21,12 +21,12 @@ function getPartnerSlug(partner: Partner): string {
   return partner.id.toString();
 }
 
-function PrincipalMarqueeCard({ partner }: { partner: Partner }) {
+function PartnerMarqueeCard({ partner }: { partner: Partner }) {
   const slug = getPartnerSlug(partner);
   const logoUrl = resolveImageUrl(partner.logo);
   return (
     <Link
-      href={`/principals/${slug}`}
+      href={`/partners/${slug}`}
       className="flex items-center justify-center h-20 sm:h-24 w-52 sm:w-60 px-6 py-3.5 rounded-xl bg-white border border-slate-200 shadow-xs hover:border-brand-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group shrink-0 select-none cursor-pointer"
       title={`View ${partner.name} Profile`}
     >
@@ -45,10 +45,12 @@ function PrincipalMarqueeCard({ partner }: { partner: Partner }) {
   );
 }
 
-export default function PrincipalsPage() {
+export default function PartnersPage() {
   const { t, locale, getLocalizedText } = useLanguage();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const partnersContent = t.partners;
 
   useEffect(() => {
     async function loadPartners() {
@@ -87,29 +89,29 @@ export default function PrincipalsPage() {
       {/* Hero Header */}
       <section className="max-w-4xl mx-auto px-6 lg:px-12 text-center pb-14">
         <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600 mb-2.5 inline-block">
-          {t.principals.badge}
+          {partnersContent.badge}
         </span>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          {t.principals.title}
+          {partnersContent.title}
         </h1>
         <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          {t.principals.subtitle}
+          {partnersContent.subtitle}
         </p>
       </section>
 
-      {/* Principals Directory List */}
+      {/* Partners Directory List */}
       <section className="py-12 sm:py-16 bg-white border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-3 sm:gap-4">
             <div>
               <span className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] sm:text-xs font-bold text-brand-600">
-                Official Principals Directory
+                Official Partners Directory
               </span>
               <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
                 Authorized Global Technology Partners
               </h2>
               <p className="text-[11px] sm:text-sm text-slate-500 mt-1">
-                Select any principal to view detailed company profile, distributed product lines, and field documentation gallery.
+                Select any partner to view detailed company profile.
               </p>
             </div>
           </div>
@@ -121,7 +123,7 @@ export default function PrincipalsPage() {
           ) : partners.length === 0 ? (
             <div className="text-center py-16 bg-slate-50 rounded-xl border border-slate-200">
               <Building2 className="w-10 h-10 mx-auto text-slate-300 mb-2" />
-              <p className="text-sm font-bold text-slate-700">{t.principals.empty}</p>
+              <p className="text-sm font-bold text-slate-700">{partnersContent.empty}</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6">
@@ -133,7 +135,7 @@ export default function PrincipalsPage() {
                 return (
                   <Link
                     key={partner.id}
-                    href={`/principals/${slug}`}
+                    href={`/partners/${slug}`}
                     className="group bg-white rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg hover:shadow-brand-500/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden"
                   >
                     <div className="p-3.5 sm:p-6 space-y-2.5 sm:space-y-4">
@@ -173,7 +175,7 @@ export default function PrincipalsPage() {
 
                       {/* Description */}
                       <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 sm:line-clamp-3">
-                        {description || 'Official technology principal collaborating with PT Askara Tekno Pangan.'}
+                        {description || 'Official technology partner collaborating with PT Askara Tekno Pangan.'}
                       </p>
                     </div>
 
@@ -209,10 +211,10 @@ export default function PrincipalsPage() {
 
           <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-8 text-center relative z-10">
             <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600">
-              {t.principals.networkBadge}
+              {partnersContent.networkBadge}
             </span>
             <h2 className="mt-1 text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-              {t.principals.networkTitle}
+              {partnersContent.networkTitle}
             </h2>
           </div>
 
@@ -221,7 +223,7 @@ export default function PrincipalsPage() {
             <div className="flex w-full overflow-hidden py-1">
               <div className="animate-marquee-right flex gap-4 shrink-0">
                 {row1Items.map((partner, index) => (
-                  <PrincipalMarqueeCard key={`row1-${partner.id}-${index}`} partner={partner} />
+                  <PartnerMarqueeCard key={`row1-${partner.id}-${index}`} partner={partner} />
                 ))}
               </div>
             </div>
@@ -230,7 +232,7 @@ export default function PrincipalsPage() {
             <div className="flex w-full overflow-hidden py-1">
               <div className="animate-marquee-left flex gap-4 shrink-0">
                 {row2Items.map((partner, index) => (
-                  <PrincipalMarqueeCard key={`row2-${partner.id}-${index}`} partner={partner} />
+                  <PartnerMarqueeCard key={`row2-${partner.id}-${index}`} partner={partner} />
                 ))}
               </div>
             </div>

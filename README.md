@@ -8,7 +8,7 @@ Production-grade, modern web platform for **PT Askara Tekno Pangan** built with 
 
 - **Static Export & SSG Compilation**: Configured for high-speed edge delivery and static prerendering (100% clean static builds across all 62+ routes).
 - **Hybrid Routing Strategy**:
-  - **Public Consumer SEO Routes**: Semantic, permalink dynamic routes (`/products/[category]/[slug]`, `/career/[slug]`, `/principals/[slug]`) with `generateStaticParams()` for optimal Google indexing.
+  - **Public Consumer SEO Routes**: Semantic, permalink dynamic routes (`/products/[category]/[slug]`, `/career/[slug]`, `/partners/[slug]`) with `generateStaticParams()` for optimal Google indexing.
   - **Admin CMS Routes**: Clean, standardized **Query Parameter Pattern** (`/admin/<module>/edit?id=...` & `/admin/<module>/detail?id=...`) wrapped inside React `<Suspense>` boundaries to eliminate nested dummy folders and prevent build deopt.
 - **Pure Database-Driven Dynamic Rendering**: Zero static text flashing or blinking on page refresh; all dynamic CMS data (Hero sliders, Who We Are, Showcase, Products, Industries, Partners, Articles, About Us) bind directly to the backend API.
 - **Enterprise SEO & Structured Data**: Built-in Schema.org JSON-LD (`Organization`, `WebSite` with `SearchAction`, `BreadcrumbList`, `CollectionPage`), dynamic `sitemap.xml`, `robots.txt`, and Google Search Console verification.

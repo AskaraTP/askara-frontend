@@ -210,7 +210,7 @@ export default function ProductDetailClient({ params }: ProductDetailClientProps
                   <Building className="w-4 h-4 text-brand-500" />
                   <span>{t.products.principal}:{' '}
                     <Link
-                      href={`/principals/${product.principal.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')}`}
+                      href={`/partners/${product.principal.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')}`}
                       className="text-slate-900 font-semibold hover:text-brand-600 hover:underline transition-colors"
                       title={`View ${product.principal} Profile`}
                     >

@@ -15,6 +15,9 @@ import {
   Droplets,
   TestTubes,
   Headphones,
+  ShieldCheck,
+  FileCheck2,
+  Zap,
   ExternalLink,
   ChevronRight,
   ChevronLeft,
@@ -280,7 +283,7 @@ export default function HomePage() {
     setShowcasePaused(false);
   };
 
-  const solutionIcons = [FlaskConical, Wine, Droplets, TestTubes, Headphones];
+  const solutionIcons = [FlaskConical, ShieldCheck, FileCheck2, Zap, Headphones];
 
   const row1Base = partners.filter((_, idx) => idx % 2 === 0);
   const row2Base = partners.filter((_, idx) => idx % 2 !== 0);
@@ -685,7 +688,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Global Principals & Partners */}
+      {/* Global Partners */}
       {partners.length > 0 && (
         <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 border-y border-slate-200/80 text-slate-900 overflow-hidden relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-slate-50 to-transparent z-10" />

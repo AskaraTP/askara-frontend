@@ -3,7 +3,7 @@
     "about": "About",
     "products": "Products",
     "industries": "Industries",
-    "principals": "Partner",
+    "partners": "Partner",
     "articles": "Articles",
     "career": "Career",
     "contact": "Contact",
@@ -16,18 +16,18 @@
     "trustedBadge": "Trusted Partner for 20+ Years",
     "stats": {
       "products": "Products",
-      "principals": "Partner",
+      "partners": "Partner",
       "customers": "Customers",
       "experience": "Years Experience"
     },
     "whatWeSolve": "What We Solve",
     "whatWeSolveTitle": "Comprehensive Solutions for Every Laboratory Need",
     "solutions": [
-      { "title": "Food Quality Analysis", "desc": "Ensuring the integrity, nutritional value, and safety of food products." },
-      { "title": "Beverage Testing", "desc": "Specialized analytical instruments for juice, wine, beer, and soft drinks." },
-      { "title": "Water & Wastewater", "desc": "Pure water systems and effluent monitoring solutions." },
-      { "title": "Food Safety Screening", "desc": "Rapid kits for allergens, pathogens, and toxin detection." },
-      { "title": "Method & App Support", "desc": "Certified application support and continuous operator training." }
+      { "title": "Ensure Product Quality", "desc": "Analytical solutions to help maintain product quality, consistency, and industry standards." },
+      { "title": "Strengthen Food Safety", "desc": "Supporting testing solutions to help ensure food safety and reduce potential risks." },
+      { "title": "Achieve Regulatory Compliance", "desc": "Helping laboratories and food manufacturers meet applicable standards and regulatory requirements." },
+      { "title": "Improve Laboratory Efficiency", "desc": "Streamlining laboratory workflows through fast, accurate, and user-friendly technologies." },
+      { "title": "Expert Technical Support", "desc": "Application support, training, and technical assistance to ensure successful laboratory implementation." }
     ],
     "featuredProducts": "Our Solutions",
     "featuredProductsTitle": "Products & featured solutions",
@@ -47,7 +47,7 @@
     "featured": "Featured",
     "exploreCategory": "Explore Category",
     "explore": "Explore",
-    "searchPlaceholder": "Search products, models, or principals...",
+    "searchPlaceholder": "Search products, models, or partners...",
     "allCategories": "All Categories",
     "filterBy": "Filter by Category",
     "searchResults": "Search Results",
@@ -61,7 +61,7 @@
     "features": "Features",
     "applications": "Applications",
     "specifications": "Specifications",
-    "principal": "Principal",
+    "principal": "Partner",
     "loadingDetails": "Loading product details...",
     "productNotFound": "Product Not Found",
     "productNotFoundDesc": "The requested product may have been moved or is currently unavailable.",
@@ -105,7 +105,7 @@
       }
     ]
   },
-  "principals": {
+  "partners": {
     "badge": "Our Global Partners",
     "title": "World-Class Technology Partners",
     "subtitle": "We partner directly with leading international instrument and reagent manufacturers to deliver state-of-the-art laboratory solutions to Indonesia.",

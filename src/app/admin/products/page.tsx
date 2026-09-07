@@ -150,7 +150,7 @@ export default function AdminProductsPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search products, model, principal..."
+                placeholder="Search products, model, partner..."
                 className="w-full pl-9 pr-3.5 py-2 rounded-md bg-slate-50 border border-slate-200 text-xs focus:bg-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition-colors"
               />
             </div>
@@ -188,7 +188,7 @@ export default function AdminProductsPage() {
                   <th className="py-3 px-3 w-28 text-center">Urutan</th>
                   <th className="py-3 px-4">Product Details</th>
                   <th className="py-3 px-3">Category</th>
-                  <th className="py-3 px-3">Principal</th>
+                  <th className="py-3 px-3">Partner</th>
                   <th className="py-3 px-3 text-center">Featured Showcase</th>
                   <th className="py-3 px-3 text-center">Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
@@ -265,7 +265,7 @@ export default function AdminProductsPage() {
                         </span>
                       </td>
 
-                      {/* Principal */}
+                      {/* Partner */}
                       <td className="py-3 px-3 text-xs font-semibold text-slate-800">
                         {prod.principal || 'Askara'}
                       </td>

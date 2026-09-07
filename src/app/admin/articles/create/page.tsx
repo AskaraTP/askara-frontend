@@ -24,7 +24,6 @@ export default function CreateArticlePage() {
   const router = useRouter();
   const { toast } = useUI();
   const [saving, setSaving] = useState(false);
-  const [isCustomCategory, setIsCustomCategory] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState({
@@ -38,22 +37,6 @@ export default function CreateArticlePage() {
     is_active: true,
     sort_order: 1,
   });
-
-  const handleCategorySelectChange = (val: string) => {
-    if (val === 'CUSTOM') {
-      setIsCustomCategory(true);
-    } else {
-      setIsCustomCategory(false);
-      const preset = ARTICLE_CATEGORY_PRESETS.find((c) => c.en === val);
-      if (preset) {
-        setFormData((prev) => ({
-          ...prev,
-          category_en: preset.en,
-          category_id: preset.id,
-        }));
-      }
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,46 +119,78 @@ export default function CreateArticlePage() {
             </FormField>
           </div>
 
-          {/* Category Dropdown & Custom Category */}
+          {/* Category Classification */}
           <div className="p-4 rounded-md bg-slate-50 border border-slate-200 space-y-3">
-            <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Category Classification *
-            </label>
+            <div>
+              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Category Classification *
+              </label>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Kategori topik artikel (misal: Food Safety, Technology). Pilih preset cepat di bawah atau tulis kategori kustom langsung di kolom teks.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <select
-                  value={isCustomCategory ? 'CUSTOM' : formData.category_en}
-                  onChange={(e) => handleCategorySelectChange(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-md border border-slate-200 text-xs font-medium focus:border-brand-500 outline-none bg-white text-slate-800"
-                >
-                  {ARTICLE_CATEGORY_PRESETS.map((c, i) => (
-                    <option key={i} value={c.en}>
-                      {c.en} ({c.id})
-                    </option>
-                  ))}
-                  <option value="CUSTOM">+ Custom Category (Tulis Kategori Sendiri)</option>
-                </select>
-              </div>
+              <FormField label="Category (English)" required error={errors.category_en}>
+                <input
+                  type="text"
+                  value={formData.category_en}
+                  onChange={(e) => {
+                    setFormData({ ...formData, category_en: e.target.value });
+                    if (errors.category_en) setErrors({ ...errors, category_en: '' });
+                  }}
+                  placeholder="e.g. Food Safety"
+                  className="w-full px-3.5 py-2.5 rounded-md border border-slate-200 text-xs sm:text-sm bg-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition-colors"
+                />
+              </FormField>
 
-              {isCustomCategory && (
-                <div className="grid grid-cols-2 gap-2.5">
-                  <input
-                    type="text"
-                    value={formData.category_en}
-                    onChange={(e) => setFormData({ ...formData, category_en: e.target.value })}
-                    placeholder="Category EN"
-                    className="w-full px-3 py-2 rounded-md border border-slate-200 text-xs bg-white focus:border-brand-500 outline-none"
-                  />
-                  <input
-                    type="text"
-                    value={formData.category_id}
-                    onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-                    placeholder="Kategori ID"
-                    className="w-full px-3 py-2 rounded-md border border-slate-200 text-xs bg-white focus:border-brand-500 outline-none"
-                  />
-                </div>
-              )}
+              <FormField label="Kategori (Indonesian)" required error={errors.category_id}>
+                <input
+                  type="text"
+                  value={formData.category_id}
+                  onChange={(e) => {
+                    setFormData({ ...formData, category_id: e.target.value });
+                    if (errors.category_id) setErrors({ ...errors, category_id: '' });
+                  }}
+                  placeholder="e.g. Keamanan Pangan"
+                  className="w-full px-3.5 py-2.5 rounded-md border border-slate-200 text-xs sm:text-sm bg-white focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition-colors"
+                />
+              </FormField>
+            </div>
+
+            {/* Quick Preset Buttons */}
+            <div className="pt-2 border-t border-slate-200/60">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
+                Pilihan Kategori Cepat (Quick Presets):
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {ARTICLE_CATEGORY_PRESETS.map((preset, idx) => {
+                  const isSelected = formData.category_en === preset.en;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          category_en: preset.en,
+                          category_id: preset.id,
+                        }));
+                        if (errors.category_en || errors.category_id) {
+                          setErrors((prev) => ({ ...prev, category_en: '', category_id: '' }));
+                        }
+                      }}
+                      className={`px-2.5 py-1 rounded text-xs font-medium border transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-brand-500 border-brand-500 text-white shadow-xs font-semibold'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-brand-300 hover:bg-slate-50'
+                      }`}
+                    >
+                      {preset.en} <span className="opacity-75 text-[11px]">({preset.id})</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

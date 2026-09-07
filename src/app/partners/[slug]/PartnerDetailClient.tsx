@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/context';
 import { api, resolveImageUrl } from '@/lib/api';
@@ -24,13 +24,13 @@ import {
 
 import { useDynamicSlug } from '@/hooks/useDynamicRouteParams';
 
-interface PrincipalDetailClientProps {
+interface PartnerDetailClientProps {
   params?: Promise<{
     slug: string;
   }>;
 }
 
-export default function PrincipalDetailClient({ params }: PrincipalDetailClientProps) {
+export default function PartnerDetailClient({ params }: PartnerDetailClientProps) {
   const { slug: partnerSlug } = useDynamicSlug(params);
   const { t, getLocalizedText, locale } = useLanguage();
 
@@ -40,6 +40,8 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
 
   // Lightbox Modal State
   const [activePhotoIdx, setActivePhotoIdx] = useState<number | null>(null);
+
+  const partnersContent = t.partners;
 
   useEffect(() => {
     async function loadData() {
@@ -53,12 +55,12 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
         if (partnerData) {
           setPartner(partnerData);
 
-          // If accessed via numeric ID (e.g. /principals/4), seamlessly rewrite address bar to clean SEO slug (e.g. /principals/merck)
+          // If accessed via numeric ID (e.g. /partners/4), seamlessly rewrite address bar to clean SEO slug (e.g. /partners/merck)
           if (partnerData.slug && !isNaN(Number(partnerSlug)) && typeof window !== 'undefined') {
-            window.history.replaceState(null, '', `/principals/${partnerData.slug}`);
+            window.history.replaceState(null, '', `/partners/${partnerData.slug}`);
           }
 
-          // Filter products matching this principal
+          // Filter products matching this partner
           const matchingProducts = allProducts.filter(
             (p) =>
               p.principal?.toLowerCase() === partnerData.name?.toLowerCase() ||
@@ -100,7 +102,7 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
     return (
       <div className="pt-32 pb-24 min-h-[60vh] flex flex-col items-center justify-center space-y-3">
         <div className="w-8 h-8 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-xs text-slate-500 font-medium">Loading principal profile & documentation...</p>
+        <p className="text-xs text-slate-500 font-medium">Loading partner profile & documentation...</p>
       </div>
     );
   }
@@ -109,16 +111,16 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
     return (
       <div className="pt-32 pb-24 max-w-xl mx-auto px-6 text-center space-y-4">
         <Building2 className="w-12 h-12 mx-auto text-slate-300" />
-        <h1 className="text-xl font-bold text-slate-900">Principal Not Found</h1>
+        <h1 className="text-xl font-bold text-slate-900">Partner Not Found</h1>
         <p className="text-xs text-slate-500">
-          The requested technology principal &quot;{partnerSlug}&quot; could not be found or is currently unavailable.
+          The requested technology partner &quot;{partnerSlug}&quot; could not be found or is currently unavailable.
         </p>
         <Link
-          href="/principals"
+          href="/partners"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Principals Directory
+          Back to Partners Directory
         </Link>
       </div>
     );
@@ -126,16 +128,16 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
 
   const description = getLocalizedText(partner.description_en, partner.description_id);
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://askara.co.id';
-  const principalUrl = `${SITE_URL}/principals/${partner.slug || partnerSlug}`;
-  const principalLogoUrl = partner.logo ? resolveImageUrl(partner.logo) : `${SITE_URL}/images/logo.png`;
+  const partnerUrl = `${SITE_URL}/partners/${partner.slug || partnerSlug}`;
+  const partnerLogoUrl = partner.logo ? resolveImageUrl(partner.logo) : `${SITE_URL}/images/logo.png`;
 
-  const principalJsonLd = {
+  const partnerJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Brand',
     name: partner.name,
-    url: principalUrl,
-    logo: principalLogoUrl,
-    description: description || `${partner.name} - Prinsipal & Mitra Teknologi PT Askara Tekno Pangan`,
+    url: partnerUrl,
+    logo: partnerLogoUrl,
+    description: description || `${partner.name} - Partner & Mitra Teknologi PT Askara Tekno Pangan`,
   };
 
   const breadcrumbJsonLd = {
@@ -151,21 +153,21 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Principals & Partners',
-        item: `${SITE_URL}/principals`,
+        name: 'Partners',
+        item: `${SITE_URL}/partners`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: partner.name,
-        item: principalUrl,
+        item: partnerUrl,
       },
     ],
   };
 
   return (
     <div className="pt-24 lg:pt-32">
-      <JsonLd data={[principalJsonLd, breadcrumbJsonLd]} />
+      <JsonLd data={[partnerJsonLd, breadcrumbJsonLd]} />
       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-3">
         <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">
@@ -173,15 +175,15 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/principals" className="hover:text-slate-900 transition-colors">
-            Principals & Partners
+          <Link href="/partners" className="hover:text-slate-900 transition-colors">
+           Partners
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <span className="text-slate-900 font-semibold truncate">{partner.name}</span>
         </nav>
       </div>
 
-      {/* Hero & Principal Profile */}
+      {/* Hero & Partner Profile */}
       <section className="py-10 lg:py-14 bg-slate-50 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -208,7 +210,7 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
                   <ShieldCheck className="w-3.5 h-3.5 text-brand-600" />
-                  {t.principals.authorizedBadge}
+                  {partnersContent.authorizedBadge}
                 </span>
 
                 {partner.country && (
@@ -244,7 +246,7 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold transition-colors shadow-xs"
                   >
-                    <span>{t.principals.visitWebsite}</span>
+                    <span>{partnersContent.visitWebsite}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -260,28 +262,28 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
               <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600">
-                {t.principals.activitiesBadge}
+                {partnersContent.activitiesBadge}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-                {t.principals.galleryTitle} {partner.name}
+                {partnersContent.galleryTitle} {partner.name}
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                {t.principals.gallerySubtitle}
+                {partnersContent.gallerySubtitle}
               </p>
             </div>
 
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-50 px-3.5 py-2 rounded-lg border border-slate-200 shrink-0">
               <ImageIcon className="w-4 h-4 text-brand-500" />
-              <span>{galleryItems.length} {t.principals.photosCount}</span>
+              <span>{galleryItems.length} {partnersContent.photosCount}</span>
             </div>
           </div>
 
           {galleryItems.length === 0 ? (
             <div className="p-12 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
               <ImageIcon className="w-10 h-10 mx-auto text-slate-300" />
-              <p className="text-sm font-bold text-slate-700">{t.principals.noPhotos}</p>
+              <p className="text-sm font-bold text-slate-700">{partnersContent.noPhotos}</p>
               <p className="text-xs text-slate-500">
-                {t.principals.noPhotosDesc}
+                {partnersContent.noPhotosDesc}
               </p>
             </div>
           ) : (
@@ -317,7 +319,7 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
                         </span>
                       )}
                       <p className="text-xs font-semibold text-slate-800 leading-snug group-hover:text-brand-600 transition-colors line-clamp-2">
-                        {caption || `${partner.name} ${t.principals.activityDoc} #${idx + 1}`}
+                        {caption || `${partner.name} ${partnersContent.activityDoc} #${idx + 1}`}
                       </p>
                     </div>
                   </div>
@@ -335,13 +337,13 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
               <div>
                 <span className="uppercase tracking-[0.3em] text-xs font-bold text-brand-600">
-                  {t.principals.productsBadge}
+                  {partnersContent.productsBadge}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-                  {t.principals.productsTitle} {partner.name}
+                  {partnersContent.productsTitle} {partner.name}
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  {t.principals.productsSubtitle}
+                  {partnersContent.productsSubtitle}
                 </p>
               </div>
 
@@ -349,7 +351,7 @@ export default function PrincipalDetailClient({ params }: PrincipalDetailClientP
                 href="/products"
                 className="inline-flex items-center gap-1.5 font-bold text-xs text-brand-600 hover:text-brand-700 transition-colors shrink-0"
               >
-                <span>{t.principals.viewAllProducts}</span>
+                <span>{partnersContent.viewAllProducts}</span>
                 <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
               </Link>
             </div>

@@ -292,7 +292,7 @@ function ProductEditForm() {
             </div>
             <div>
               <h2 className="text-sm font-bold text-slate-900">General Information</h2>
-              <p className="text-xs text-slate-500">Product titles, category, principal brand, and permalinks</p>
+              <p className="text-xs text-slate-500">Product titles, category, partner brand, and permalinks</p>
             </div>
           </div>
 
@@ -347,7 +347,7 @@ function ProductEditForm() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Principal / Manufacturer Brand
+                Partner / Manufacturer Brand
               </label>
               <input
                 type="text"

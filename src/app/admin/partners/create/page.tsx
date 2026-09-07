@@ -150,7 +150,7 @@ export default function CreatePartnerPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name) {
-      toast('Please enter the principal / partner name', 'warning');
+      toast('Please enter partner name', 'warning');
       return;
     }
 
@@ -162,17 +162,17 @@ export default function CreatePartnerPage() {
       };
 
       const created = await api.admin.createPartner(payload);
-      toast('Principal created successfully', 'success');
+      toast('Partner created successfully', 'success');
       router.push(`/admin/partners/detail?id=${created.id}`);
     } catch (err: any) {
-      toast(err.message || 'Failed to create principal', 'error');
+      toast(err.message || 'Failed to create partner', 'error');
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <AdminLayout title="Add Principal / Partner">
+    <AdminLayout title="Add Partner">
       <form onSubmit={handleSubmit} className="space-y-5 pb-12">
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
@@ -185,9 +185,9 @@ export default function CreatePartnerPage() {
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>
-              <h1 className="text-base font-bold text-slate-900 leading-tight">Add Principal / Partner</h1>
+              <h1 className="text-base font-bold text-slate-900 leading-tight">Add Partner</h1>
               <p className="text-xs text-slate-500 mt-0.5">
-                Register new technology principal profile, logo, country of origin, and documentation gallery.
+                Register new technology partner profile, logo, country of origin, and documentation gallery.
               </p>
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function CreatePartnerPage() {
               className="inline-flex items-center gap-2 px-5 py-2 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors shadow-sm disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              {saving ? 'Creating Principal...' : 'Save & Publish Principal'}
+              {saving ? 'Creating Partner...' : 'Save & Publish Partner'}
             </button>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function CreatePartnerPage() {
           <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <h2 className="text-sm font-bold text-slate-900">1. Principal Identity & Logo</h2>
+                <h2 className="text-sm font-bold text-slate-900">1. Partner Identity & Logo</h2>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Upload official company logo with original colors and configure company details.
                 </p>
@@ -310,7 +310,7 @@ export default function CreatePartnerPage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Principal / Partner Name *
+                  Partner Name *
                 </label>
                 <input
                   type="text"
@@ -382,7 +382,7 @@ export default function CreatePartnerPage() {
             <div>
               <h2 className="text-sm font-bold text-slate-900">2. Company Profile & Overview (Bilingual)</h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Provide comprehensive background on the principal and partnership scope.
+                Provide comprehensive background on the partner and partnership scope.
               </p>
             </div>
 
@@ -613,7 +613,7 @@ export default function CreatePartnerPage() {
                 onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
                 className="w-4 h-4 rounded text-brand-500 focus:ring-brand-500"
               />
-              <span>Active in Principals Directory & Website Marquee</span>
+              <span>Active in Partners Directory & Website Marquee</span>
             </label>
           </div>
 
@@ -631,7 +631,7 @@ export default function CreatePartnerPage() {
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors shadow-sm disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              {saving ? 'Creating Principal...' : 'Save & Publish Principal'}
+              {saving ? 'Creating Partner...' : 'Save & Publish Partner'}
             </button>
           </div>
         </form>

@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/principals`,
+      url: `${baseUrl}/partners`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
@@ -95,9 +95,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75,
     }));
 
-    // Partner / Principal Detail pages
+    // Partner Detail pages
     const partnerRoutes: MetadataRoute.Sitemap = partners.map((partner) => ({
-      url: `${baseUrl}/principals/${partner.slug || partner.id}`,
+      url: `${baseUrl}/partners/${partner.slug || partner.id}`,
       lastModified: (partner as any).updated_at || now,
       changeFrequency: 'monthly',
       priority: 0.8,

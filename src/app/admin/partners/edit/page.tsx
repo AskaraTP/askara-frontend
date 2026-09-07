@@ -96,16 +96,16 @@ function PartnerEditForm() {
   const handleDelete = async () => {
     if (!partnerId) return;
     const ok = await confirm({
-      title: 'Delete Principal / Partner',
-      message: `Are you sure you want to delete principal #${partnerId}?`,
-      confirmText: 'Delete Principal',
+      title: 'Delete Partner',
+      message: `Are you sure you want to delete partner #${partnerId}?`,
+      confirmText: 'Delete Partner',
       isDestructive: true,
     });
 
     if (ok) {
       try {
         await api.admin.deletePartner(partnerId);
-        toast('Principal deleted successfully', 'success');
+        toast('Partner deleted successfully', 'success');
         router.push('/admin/partners');
       } catch (err: any) {
         toast(err.message || 'Failed to delete partner', 'error');
@@ -191,7 +191,7 @@ function PartnerEditForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name) {
-      toast('Please enter the principal / partner name', 'warning');
+      toast('Please enter partner name', 'warning');
       return;
     }
 
@@ -203,10 +203,10 @@ function PartnerEditForm() {
       };
 
       const updated = await api.admin.updatePartner(partnerId, payload);
-      toast('Principal updated successfully', 'success');
+      toast('Partner updated successfully', 'success');
       router.push(`/admin/partners/detail?id=${updated.id}`);
     } catch (err: any) {
-      toast(err.message || 'Failed to update principal', 'error');
+      toast(err.message || 'Failed to update partner', 'error');
     } finally {
       setSaving(false);
     }
@@ -214,31 +214,31 @@ function PartnerEditForm() {
 
   if (loading) {
     return (
-      <AdminLayout title="Edit Principal">
+      <AdminLayout title="Edit Partner">
         <div className="bg-white p-12 rounded-lg border border-slate-200 text-center space-y-3">
           <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-slate-500">Loading principal details...</p>
+          <p className="text-xs text-slate-500">Loading partner details...</p>
         </div>
       </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout title={`Edit Principal: ${formData.name || partnerId}`}>
+    <AdminLayout title={`Edit Partner: ${formData.name || partnerId}`}>
       <form onSubmit={handleSubmit} className="space-y-5 pb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center gap-3">
             <Link
               href={`/admin/partners/detail?id=${partnerId}`}
               className="p-2 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-              title="Back to Principal Details"
+              title="Back to Partner Details"
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>
-              <h1 className="text-base font-bold text-slate-900 leading-tight">Edit Principal: {formData.name}</h1>
+              <h1 className="text-base font-bold text-slate-900 leading-tight">Edit Partner: {formData.name}</h1>
               <p className="text-xs text-slate-500 mt-0.5">
-                Update principal details, bilingual descriptions, and documentation gallery.
+                Update partner details, bilingual descriptions, and documentation gallery.
               </p>
             </div>
           </div>
@@ -256,7 +256,7 @@ function PartnerEditForm() {
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" />
-              Delete Principal
+              Delete Partner
             </button>
             <button
               type="submit"
@@ -270,12 +270,12 @@ function PartnerEditForm() {
         </div>
 
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-sm font-bold text-slate-900">1. Basic Principal Information</h2>
+          <h2 className="text-sm font-bold text-slate-900">1. Basic Partner Information</h2>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Principal Name *
+                Partner Name *
               </label>
               <input
                 type="text"
@@ -342,7 +342,7 @@ function PartnerEditForm() {
         </div>
 
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-sm font-bold text-slate-900">2. Principal Logo & Visual Asset</h2>
+          <h2 className="text-sm font-bold text-slate-900">2. Partner Logo & Visual Asset</h2>
 
           <div className="grid md:grid-cols-12 gap-5 items-start">
             <div className="md:col-span-4 p-4 rounded-lg bg-slate-50 border border-slate-200 text-center space-y-3">
@@ -444,7 +444,7 @@ function PartnerEditForm() {
                 required
                 value={formData.description_id}
                 onChange={(e) => setFormData({ ...formData, description_id: e.target.value })}
-                placeholder="Profil prinsipal dan peran kemitraan dalam bahasa Indonesia..."
+                placeholder="Profil partner dan peran kemitraan dalam bahasa Indonesia..."
                 className="w-full px-3 py-2 rounded-md border border-slate-200 text-xs focus:border-brand-500 outline-none"
               />
             </div>
@@ -457,7 +457,7 @@ function PartnerEditForm() {
                 required
                 value={formData.description_en}
                 onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
-                placeholder="Principal profile and partnership scope in English..."
+                placeholder="Partner profile and partnership scope in English..."
                 className="w-full px-3 py-2 rounded-md border border-slate-200 text-xs focus:border-brand-500 outline-none"
               />
             </div>
@@ -615,7 +615,7 @@ export default function PartnerEditPage() {
   return (
     <Suspense
       fallback={
-        <AdminLayout title="Edit Principal">
+        <AdminLayout title="Edit Partner">
           <div className="flex items-center justify-center py-20">
             <Spinner size="md" label="Loading..." />
           </div>

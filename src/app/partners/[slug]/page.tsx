@@ -1,5 +1,5 @@
 import { api } from '@/lib/api';
-import PrincipalDetailClient from './PrincipalDetailClient';
+import PartnerDetailClient from './PartnerDetailClient';
 
 export const dynamicParams = false;
 
@@ -32,5 +32,5 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
-  return <PrincipalDetailClient params={params} />;
+  return <PartnerDetailClient params={params} />;
 }

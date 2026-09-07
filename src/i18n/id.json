@@ -3,7 +3,7 @@
     "about": "Tentang Kami",
     "products": "Produk",
     "industries": "Industri",
-    "principals": "Partner",
+    "partners": "Partner",
     "articles": "Artikel",
     "career": "Karir",
     "contact": "Kontak",
@@ -16,24 +16,24 @@
     "trustedBadge": "Mitra Terpercaya 20+ Tahun Pengalaman",
     "stats": {
       "products": "Produk",
-      "principals": "Partner",
+      "partners": "Partner",
       "customers": "Pelanggan",
       "experience": "Tahun Pengalaman"
     },
     "whatWeSolve": "Solusi Kami",
     "whatWeSolveTitle": "Solusi Komprehensif untuk Setiap Kebutuhan Laboratorium",
     "solutions": [
-      { "title": "Analisis Mutu Pangan", "desc": "Menjaga integritas, nilai nutrisi, dan keamanan produk makanan olahan." },
-      { "title": "Pengujian Minuman", "desc": "Instrumen analitik fotometris khusus untuk jus, anggur, bir, dan minuman ringan." },
-      { "title": "Air Bersih & Limbah", "desc": "Sistem pemurnian air RO laboratorium dan monitoring IPAL ramah lingkungan." },
-      { "title": "Skrining Keamanan Cepat", "desc": "Kit uji cepat untuk mendeteksi alergen, patogen, dan kontaminan berbahaya." },
-      { "title": "Dukungan Aplikasi & Metode", "desc": "Dukungan aplikasi bersertifikasi dan pelatihan operator laboratorium berkelanjutan." }
+      { "title": "Menjaga Kualitas Produk", "desc": "Solusi analitik untuk membantu menjaga kualitas, konsistensi, dan standar produk pangan." },
+      { "title": "Memperkuat Keamanan Pangan", "desc": "Mendukung pengujian untuk membantu memastikan keamanan produk dan mengurangi risiko pangan." },
+      { "title": "Memenuhi Persyaratan Regulasi", "desc": "Membantu laboratorium dan industri pangan memenuhi standar serta persyaratan regulasi yang berlaku." },
+      { "title": "Meningkatkan Efisiensi Laboratorium", "desc": "Mengoptimalkan proses pengujian melalui teknologi yang cepat, akurat, dan mudah digunakan." },
+      { "title": "Dukungan Teknis dari Ahlinya", "desc": "Dukungan aplikasi, pelatihan, dan layanan teknis untuk membantu keberhasilan implementasi solusi laboratorium." }
     ],
     "featuredProducts": "Solusi Kami",
     "featuredProductsTitle": "Produk & solusi unggulan",
     "viewAllProducts": "Lihat Semua Produk",
-    "partnersBadge": "Jaringan Prinsipal",
-    "partnersTitle": "Prinsipal & Mitra Global Kami",
+    "partnersBadge": "Jaringan Partner",
+    "partnersTitle": "Partner & Mitra Global Kami",
     "partnersSubtitle": "Bermitra dengan produsen peralatan analitis terkemuka di dunia.",
     "latestArticles": "Wawasan & Pengetahuan",
     "latestArticlesTitle": "Kabar Terbaru dari Askara",
@@ -47,7 +47,7 @@
     "featured": "Unggulan",
     "exploreCategory": "Lihat Kategori",
     "explore": "Lihat Detail",
-    "searchPlaceholder": "Cari nama produk, model, atau prinsipal...",
+    "searchPlaceholder": "Cari nama produk, model, atau partner...",
     "allCategories": "Semua Kategori",
     "filterBy": "Filter Berdasarkan Kategori",
     "searchResults": "Hasil Pencarian",
@@ -61,7 +61,7 @@
     "features": "Fitur Utama",
     "applications": "Aplikasi Penggunaan",
     "specifications": "Spesifikasi Teknis",
-    "principal": "Prinsipal",
+    "principal": "Partner",
     "loadingDetails": "Memuat detail produk...",
     "productNotFound": "Produk Tidak Ditemukan",
     "productNotFoundDesc": "Produk yang diminta mungkin telah dipindahkan atau saat ini tidak tersedia.",
@@ -105,7 +105,7 @@
       }
     ]
   },
-  "principals": {
+  "partners": {
     "badge": "Partner Global Kami",
     "title": "Partner Teknologi Kelas Dunia",
     "subtitle": "Kami bermitra langsung dengan produsen instrumen dan reagen analitis internasional terkemuka untuk menghadirkan teknologi mutakhir ke Indonesia.",

@@ -59,7 +59,7 @@ export default function AdminPartnersPage() {
       const orderedIds = copy.map((p) => p.id);
       const updated = await api.admin.reorderPartners(orderedIds);
       setPartners(updated);
-      toast(`Principal position moved ${direction}`, 'success');
+      toast(`Partner position moved ${direction}`, 'success');
     } catch (err: any) {
       toast(err.message || 'Failed to reorder partners', 'error');
       loadData();
@@ -68,16 +68,16 @@ export default function AdminPartnersPage() {
 
   const handleDelete = async (partner: Partner) => {
     const ok = await confirm({
-      title: 'Delete Partner / Principal',
-      message: `Are you sure you want to delete principal "${partner.name}"?`,
-      confirmText: 'Delete Principal',
+      title: 'Delete Partner',
+      message: `Are you sure you want to delete partner "${partner.name}"?`,
+      confirmText: 'Delete Partner',
       isDestructive: true,
     });
 
     if (ok) {
       try {
         await api.admin.deletePartner(partner.id);
-        toast('Principal deleted successfully', 'success');
+        toast('Partner deleted successfully', 'success');
         loadData();
       } catch (err: any) {
         toast(err.message || 'Failed to delete partner', 'error');
@@ -102,19 +102,19 @@ export default function AdminPartnersPage() {
   );
 
   return (
-    <AdminLayout title="Partners & Principals">
+    <AdminLayout title="Partners">
       <div className="space-y-5">
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 sm:p-5 rounded-lg border border-slate-200 shadow-xs">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-slate-900">Technology Principals & Global Partners</h2>
+              <h2 className="text-base font-bold text-slate-900">Technology Partners & Global Brands</h2>
               <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200">
-                {partners.length} Authorized Principals
+                {partners.length} Authorized Partners
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Manage international technology principals, company profiles, websites, and field activity documentation galleries.
+              Manage international technology partners, company profiles, websites, and field activity documentation galleries.
             </p>
           </div>
 
@@ -123,7 +123,7 @@ export default function AdminPartnersPage() {
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition-colors shrink-0 shadow-xs"
           >
             <Plus className="w-4 h-4" />
-            Add Principal / Partner
+            Add Partner
           </Link>
         </div>
 
@@ -135,7 +135,7 @@ export default function AdminPartnersPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search principals by name, country, or category..."
+              placeholder="Search partners by name, country, or category..."
               className="w-full pl-9 pr-4 py-2 rounded-md bg-slate-50 border border-slate-200 text-xs focus:bg-white focus:border-brand-500 outline-none transition-colors"
             />
           </div>
@@ -157,23 +157,23 @@ export default function AdminPartnersPage() {
         {loading ? (
           <div className="bg-white p-12 rounded-lg border border-slate-200 text-center space-y-3">
             <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs text-slate-500">Loading principals & partners...</p>
+            <p className="text-xs text-slate-500">Loading partners...</p>
           </div>
         ) : filteredPartners.length === 0 ? (
           <div className="bg-white p-12 rounded-lg border border-slate-200 text-center space-y-3">
             <Building2 className="w-10 h-10 mx-auto text-slate-300" />
-            <p className="text-sm font-bold text-slate-700">No Principals Found</p>
+            <p className="text-sm font-bold text-slate-700">No Partners Found</p>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
               {searchQuery
                 ? 'No partners matched your search query. Try adjusting your search term.'
-                : 'Get started by creating your first global principal profile.'}
+                : 'Get started by creating your first global partner profile.'}
             </p>
             <Link
               href="/admin/partners/create"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-brand-500 text-white text-xs font-bold"
             >
               <Plus className="w-4 h-4" />
-              Add Principal Now
+              Add Partner Now
             </Link>
           </div>
         ) : (

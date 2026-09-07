@@ -210,7 +210,7 @@ export default function CreateProductPage() {
             </div>
             <div>
               <h2 className="text-sm font-bold text-slate-900">Basic Information</h2>
-              <p className="text-xs text-slate-500">Names, category, principal brand, and status</p>
+              <p className="text-xs text-slate-500">Names, category, partner brand, and status</p>
             </div>
           </div>
 
@@ -288,7 +288,7 @@ export default function CreateProductPage() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Principal / Manufacturer
+                Partner / Manufacturer
               </label>
               <input
                 type="text"

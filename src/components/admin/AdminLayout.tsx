@@ -61,7 +61,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
     { href: '/admin/products', label: 'Products', icon: Package },
     { href: '/admin/categories', label: 'Categories', icon: Layers },
     { href: '/admin/articles', label: 'Articles', icon: FileText },
-    { href: '/admin/partners', label: 'Partners / Principals', icon: Building2 },
+    { href: '/admin/partners', label: 'Partners', icon: Building2 },
     { href: '/admin/careers', label: 'Careers', icon: Briefcase },
   ];
 

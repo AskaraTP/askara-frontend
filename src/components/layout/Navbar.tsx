@@ -52,7 +52,7 @@ export default function Navbar() {
     { href: '/about', label: t.nav.about },
     { href: '/products', label: t.nav.products },
     { href: '/industries', label: t.nav.industries },
-    { href: '/principals', label: t.nav.principals },
+    { href: '/partners', label: t.nav.partners },
     { href: '/articles', label: t.nav.articles },
     { href: '/career', label: t.nav.career },
   ];

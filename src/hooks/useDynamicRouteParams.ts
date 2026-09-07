@@ -92,7 +92,8 @@ export function useDynamicSlug(staticParams?: Promise<{ slug?: string; category?
       slug = decodeURIComponent(pathSegments[applyIndex - 1] || '');
     } else if (pathSegments.length >= 2 && (
       pathSegments[0] === 'products' ||
-      pathSegments[0] === 'principals' ||
+      pathSegments[0] === 'partners' ||
+      pathSegments[0] === 'partner' ||
       pathSegments[0] === 'career' ||
       pathSegments[0] === 'industries' ||
       pathSegments[0] === 'articles'
